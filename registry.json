@@ -523,6 +523,25 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "epoch-countdown-timer",
+      "title": "EpochCountdownTimer",
+      "description": "Eque EpochCountdownTimer molecule: DD:HH:MM:SS tabular countdown with a pulsing status dot; expired state freezes at zeros and fires onExpire once (TASKS.md 2.8).",
+      "type": "registry:ui",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/typography"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/EpochCountdownTimer/EpochCountdownTimer.tsx",
+          "target": "components/molecules/EpochCountdownTimer/EpochCountdownTimer.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"

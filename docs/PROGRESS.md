@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 7/16
+Phase 2: 8/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -996,3 +996,33 @@ all pass with zero errors.
 - [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `risk-level-indicator` item builds; 22 items total
+
+## [Phase 2.8] Epoch Countdown Timer — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/EpochCountdownTimer/EpochCountdownTimer.tsx` (new)
+- `components/molecules/EpochCountdownTimer/EpochCountdownTimer.stories.tsx` (new)
+- `components/molecules/EpochCountdownTimer/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`epoch-countdown-timer` item — 23 items total)
+
+**Implemented:**
+- `target: Date | number` (epoch-ms), `onExpire?: () => void` (fires exactly once; re-arms if the target moves back into the future).
+- `DD:HH:MM:SS` tabular `MonoNumber` ticking every second; square status dot pulses `bg-primary` while live (Tailwind `animate-ping` overlay), freezes to static `bg-text-tertiary` at `00:00:00:00` when expired (`data-state` live/expired).
+- `role="timer"` (implicit `aria-live="off"` keeps screen readers quiet); `aria-label` carries the full text.
+- Hydration: initial state computed at render so SSR shows a real value; digits carry `suppressHydrationWarning` for the server/client clock skew across a second boundary.
+- Stories: Live (format + pulse assertions), Expired (zeros, no pulse), FiresOnExpire (`onExpire` called exactly once via `waitFor`).
+
+**Design system references:** DESIGN.md §2, §3.3, §6.1, §8
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `epoch-countdown-timer` item builds; 23 items total
