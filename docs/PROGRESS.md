@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 3/16
+Phase 2: 4/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -863,3 +863,34 @@ all pass with zero errors.
 - New prop `showSlider?: boolean` (default `true`): `false` hides the percentage slider; field, Max, and estimate keep working. New `WithoutSlider` story asserts the slider is absent.
 - Registry rebuilt (`token-amount-input` item now ships `showSlider`); `npm run lint` and `npm run build` pass. Browser story tests still unverifiable here (Playwright download blocked by proxy).
 - Decision (owner: "bebas"): per-option `iconSrc` on the Select atom NOT added — `label: ReactNode` already covers icons and TokenAmountInput funnels `iconSrc` into the option labels. No API change.
+
+## [Phase 2.4] Wallet Address Chip — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/WalletAddressChip/WalletAddressChip.tsx` (new)
+- `components/molecules/WalletAddressChip/WalletAddressChip.stories.tsx` (new)
+- `components/molecules/WalletAddressChip/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`wallet-address-chip` item — 19 items total)
+
+**Implemented:**
+- Neutral `Badge` (h-7, normal-case) + `MonoNumber` (tabular, 11px) truncated via `truncateAddress(address, leadingChars, trailingChars)` — defaults `0x1234...aBcD`.
+- Address wrapped in `Tooltip` (full address); `tabIndex={0}` on the MonoNumber so keyboard users can open it (same pattern as ApyPill's badge trigger).
+- Copy button (`Copy`/`Check` lucide): async clipboard with `textarea`+`execCommand` fallback; on success icon swaps to success `Check` and tooltip flips to "Copied!" for `copiedDurationMs` (default 1600ms); `aria-live="polite"` announces the feedback; timer cleaned up on unmount.
+- Explorer anchor (`ExternalLink` lucide, `target="_blank" rel="noreferrer"`, "View on explorer" tooltip) — renders only when `explorerUrl` is provided.
+- Stories: Default (truncated display + tooltip reveals full address), WithoutExplorer (no explorer icon), CopyFeedback (clipboard stubbed; asserts full address copied, `data-state="copied"`, feedback clears after duration), ShortAddress (below truncation threshold → verbatim).
+
+**Design system references:** DESIGN.md §2, §3.3, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none — badge h-7 (vs h-6 default) gives the two 20px icon hit-targets breathing room; icon buttons use the badge's own focus-visible outline language.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none (lucide glyphs only).
+
+**Known gaps / follow-ups:**
+- Browser story play-tests still unverifiable in this sandbox: Playwright browsers can't download (proxy-blocked). Workaround attempted — symlinked system Chromium 152 (`/opt/meta-chromium/chrome`) into `~/.cache/ms-playwright` for both `chromium-1243` and `chromium_headless_shell-1243`; the binary launches but `page.goto` to the vitest localhost server fails with `ERR_BLOCKED_BY_LOCAL_NETWORK_ACCESS_CHECKS` (Chromium 152's Local Network Access checks vs the older Playwright driver). The play functions follow the exact `userEvent.hover → getByRole("tooltip")` pattern of the passing ApyPill stories, so risk is low; re-run on a machine with working Playwright.
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `wallet-address-chip` item builds; 19 items total

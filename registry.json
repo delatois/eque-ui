@@ -440,6 +440,29 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "wallet-address-chip",
+      "title": "WalletAddressChip",
+      "description": "Eque WalletAddressChip molecule: truncated address in a neutral badge + copy-to-clipboard button with Copied feedback + optional block-explorer link (TASKS.md 2.4).",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/tooltip",
+        "@eque/typography"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/WalletAddressChip/WalletAddressChip.tsx",
+          "target": "components/molecules/WalletAddressChip/WalletAddressChip.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"
