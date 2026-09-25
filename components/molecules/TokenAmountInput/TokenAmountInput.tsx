@@ -173,7 +173,15 @@ function TokenAmountInput({
           Available {formatNumber(balance)} {token.symbol}
         </p>
       </div>
-      <div className="flex items-center gap-2">
+      {/*
+        items-start (not center): the Input atom appends its error
+        message below the field, which would otherwise grow this column
+        and vertically center the 44px field away from the 44px Select
+        trigger. Top-aligned keeps field + trigger pixel-aligned in
+        every state; the message hangs below the field and pushes the
+        estimate/slider down naturally.
+      */}
+      <div className="flex items-start gap-2">
         <div className="min-w-0 flex-1">
           <Input
             variant="number"

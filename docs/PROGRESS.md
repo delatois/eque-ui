@@ -894,3 +894,8 @@ all pass with zero errors.
 - [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `wallet-address-chip` item builds; 19 items total
+
+## 2026-09-26 — TokenAmountInput: error-state alignment fix (owner request)
+- Owner reported the External error state story's card still misaligned. Root cause: when `error` is set, the Input atom appends its `role="alert"` message (~24px: text-xs + gap-2) below the field inside the input column. The field row was `items-center`, so the column grew to ~68px and the 44px field got vertically centered — pushed ~12px UP relative to the 44px Select trigger, with the Max button dropping along.
+- Fix: field row is now `items-start` — field and trigger stay top-aligned (both exactly 44px) in every state; the error message hangs below the field and pushes the estimate/slider down naturally. Non-error state unchanged (field/trigger were already 44px; Max sits top-aligned).
+- Verification: `npm run lint` and `npm run build` pass. Uncommitted per AGENTS.md §12 (awaiting owner decision).
