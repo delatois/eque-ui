@@ -63,6 +63,11 @@ const meta = {
       description: "Disables the field, dropdown, Max, and slider",
       table: { defaultValue: { summary: "false" } },
     },
+    showSlider: {
+      control: "boolean",
+      description: "Shows the percentage-of-balance slider",
+      table: { defaultValue: { summary: "true" } },
+    },
     token: { table: { disable: true } },
     tokens: { table: { disable: true } },
     value: { table: { disable: true } },
@@ -317,5 +322,32 @@ export const Disabled: Story = {
     await expect(
       canvas.getByRole("slider", { name: "Amount percentage" })
     ).toBeDisabled()
+  },
+}
+
+export const WithoutSlider: Story = {
+  name: "showSlider=false hides the slider",
+  args: {
+    token: usdc,
+    balance: 1250,
+    tokenPriceUsd: 1,
+    showSlider: false,
+    onChange: fn(),
+  },
+  play: async ({ canvas, args }) => {
+    // No slider in the accessibility tree or the DOM.
+    await expect(
+      canvas.queryByRole("slider", { name: "Amount percentage" })
+    ).not.toBeInTheDocument()
+    // Field, dropdown, Max, and estimate keep working.
+    await expect(canvas.getByLabelText("Amount")).toBeInTheDocument()
+    await expect(
+      await canvas.findByRole("combobox", { name: "Token" })
+    ).toHaveTextContent("USDC")
+    await expect(
+      canvas.getByRole("button", { name: "Use max USDC balance" })
+    ).toBeInTheDocument()
+    await expect(canvas.getByText("≈ $0.00")).toBeInTheDocument()
+    await expect(args.onChange).not.toHaveBeenCalled()
   },
 }

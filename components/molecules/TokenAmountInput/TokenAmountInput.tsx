@@ -42,6 +42,12 @@ export interface TokenAmountInputProps {
   disabled?: boolean
   /** Field id; auto-generated when omitted (label stays associated). */
   id?: string
+  /**
+   * Shows the percentage-of-balance slider (default `true`). Set to
+   * `false` to hide it — the field, Max button, and estimate keep
+   * working on their own.
+   */
+  showSlider?: boolean
   /** Extra classes merged onto the root. */
   className?: string
 }
@@ -79,10 +85,11 @@ function TokenArt({ src }: { src?: string }) {
 /**
  * Eque token amount input molecule (2.3) — label + available-balance
  * line, amount field (`Input` number variant capped at the token's
- * decimals) beside a token dropdown (`Select` atom: mock art + ticker
- * trigger, token column-list popup) and a tertiary Max button, plus a
- * USD estimate line and a percentage-of-balance slider that stays
- * two-way in sync with the field. Uncontrolled by default; pass
+ * decimals) beside a token dropdown (`Select` atom: `iconSrc` art +
+ * ticker trigger, token column-list popup) and a tertiary Max button,
+ * plus a USD estimate line and an optional percentage-of-balance
+ * slider (`showSlider`, default true) that stays two-way in sync with
+ * the field. Uncontrolled by default; pass
  * `value`/`onChange` to control. The parent owns token selection
  * (balance/price swap with the token), so `token` is a controlled
  * prop with `onTokenChange`. Validation stays with the consumer via
@@ -103,10 +110,12 @@ function TokenAmountInput({
   error,
   disabled = false,
   id: idProp,
+  showSlider = true,
   className,
 }: TokenAmountInputProps) {
   const generatedId = React.useId()
   const id = idProp ?? generatedId
+  const selectId = `${id}-token-select`
   const [internalValue, setInternalValue] = React.useState(defaultValue)
   const value = valueProp ?? internalValue
   const options = tokens ?? [token]
@@ -177,7 +186,18 @@ function TokenAmountInput({
             placeholder="0.00"
           />
         </div>
+        {/*
+          Native sr-only label bound to the Select trigger's id. The
+          Select atom's `label` slot renders a visible-height wrapper
+          (text-xs + gap-2 ≈ 24px), which pushed the trigger ~12px below
+          the input field under `items-center` — so the label lives
+          here instead and the atom gets no `label` prop.
+        */}
+        <label htmlFor={selectId} className="sr-only">
+          Token
+        </label>
         <Select
+          id={selectId}
           options={options.map((t) => ({
             value: t.symbol,
             label: (
@@ -192,7 +212,6 @@ function TokenAmountInput({
           value={token.symbol}
           onValueChange={handleTokenSelect}
           disabled={disabled}
-          label={<span className="sr-only">Token</span>}
           className="w-auto shrink-0"
           triggerClassName="w-auto px-2.5"
         />
@@ -213,16 +232,18 @@ function TokenAmountInput({
           </MonoNumber>
         </p>
       ) : null}
-      <div data-slot="token-amount-slider">
-        <Slider
-          value={[percent]}
-          onValueChange={handleSlider}
-          disabled={disabled || balance <= 0}
-          thumbLabels={["Amount percentage"]}
-          showValue
-          formatValue={(v) => `${Math.round(v)}%`}
-        />
-      </div>
+      {showSlider ? (
+        <div data-slot="token-amount-slider">
+          <Slider
+            value={[percent]}
+            onValueChange={handleSlider}
+            disabled={disabled || balance <= 0}
+            thumbLabels={["Amount percentage"]}
+            showValue
+            formatValue={(v) => `${Math.round(v)}%`}
+          />
+        </div>
+      ) : null}
     </div>
   )
 }

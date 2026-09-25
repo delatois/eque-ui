@@ -857,3 +857,9 @@ all pass with zero errors.
 - [x] `npm run registry:build` succeeds — 18 JSON files in `public/r/`, all parse as valid JSON
 - [x] End-to-end install test into a scratch project: `npx shadcn@latest add @eque/apy-pill` (via `@eque` namespace) created 7 files (`ApyPill` + `badge`/`tooltip`/`typography` atoms + their primitives + Eque's `lib/utils.ts` with formatters), auto-installed npm deps, and every `@/` import in the installed files resolves to an installed file
 - [x] `lint` not re-run (no component source changed); `build-storybook` unaffected (registry output is gitignored and independent)
+
+## 2026-09-26 — TokenAmountInput: alignment fix + `showSlider` prop (owner request)
+- Alignment: the input field and token dropdown were ~12px off (screenshot). Root cause: `label={<span className="sr-only">Token</span>}` — the span was sr-only but the Select atom's label *wrapper* is visible-height (`text-xs` ≈ 16px + `gap-2` 8px = 24px extra column height), pushing the trigger down under `items-center`. Fix: the sr-only `<label htmlFor>` now lives outside the Select (native association keeps the combobox's "Token" accessible name) and the Select gets no `label` prop — both columns are exactly 44px, pixel-aligned.
+- New prop `showSlider?: boolean` (default `true`): `false` hides the percentage slider; field, Max, and estimate keep working. New `WithoutSlider` story asserts the slider is absent.
+- Registry rebuilt (`token-amount-input` item now ships `showSlider`); `npm run lint` and `npm run build` pass. Browser story tests still unverifiable here (Playwright download blocked by proxy).
+- Decision (owner: "bebas"): per-option `iconSrc` on the Select atom NOT added — `label: ReactNode` already covers icons and TokenAmountInput funnels `iconSrc` into the option labels. No API change.
