@@ -527,7 +527,7 @@
     {
       "name": "epoch-countdown-timer",
       "title": "EpochCountdownTimer",
-      "description": "Eque EpochCountdownTimer molecule: DD:HH:MM:SS tabular countdown with a pulsing status dot; expired state freezes at zeros and fires onExpire once (TASKS.md 2.8).",
+      "description": "Eque EpochCountdownTimer molecule: DD:HH:MM:SS tabular countdown with a pulsing status dot; expired state freezes at zeros and fires onExpire once (TASKS.md 2.13).",
       "type": "registry:ui",
       "dependencies": [
         "cn"
@@ -546,7 +546,7 @@
     {
       "name": "auction-bid-row",
       "title": "AuctionBidRow",
-      "description": "Eque AuctionBidRow molecule: dense tabular bid-feed row — bidder chip + tabular amount; leader gets primary tint + trophy glyph (TASKS.md 2.9).",
+      "description": "Eque AuctionBidRow molecule: dense tabular bid-feed row — bidder chip + tabular amount; leader gets primary tint + trophy glyph (bonus, outside the numbered TASKS.md plan).",
       "type": "registry:ui",
       "dependencies": [
         "lucide-react",

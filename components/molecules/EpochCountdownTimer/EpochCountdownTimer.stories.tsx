@@ -3,7 +3,7 @@ import { expect, fn, waitFor } from "storybook/test"
 import { EpochCountdownTimer } from "./EpochCountdownTimer"
 
 /**
- * Eque Epoch Countdown Timer (2.8) — `DD:HH:MM:SS` tabular digits with
+ * Eque Epoch Countdown Timer (2.13) — `DD:HH:MM:SS` tabular digits with
  * a pulsing status dot while live; the expired state freezes at zeros
  * with a static dot and fires `onExpire` once.
  */

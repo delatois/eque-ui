@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 9/16
+Phase 2: 8/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -997,7 +997,9 @@ all pass with zero errors.
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `risk-level-indicator` item builds; 22 items total
 
-## [Phase 2.8] Epoch Countdown Timer — 2026-09-26
+## [Phase 2.13] Countdown Timer — 2026-09-26
+
+> Built out of order (before 2.8–2.12); originally mislabeled 2.8, corrected 2026-09-26.
 
 **Files added/changed:**
 - `components/molecules/EpochCountdownTimer/EpochCountdownTimer.tsx` (new)
@@ -1027,7 +1029,9 @@ all pass with zero errors.
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `epoch-countdown-timer` item builds; 23 items total
 
-## [Phase 2.9] Auction Bid Row — 2026-09-26
+## [Bonus] Auction Bid Row — 2026-09-26
+
+> Not in the numbered TASKS.md plan — extra molecule for the /auction bid feed; originally mislabeled 2.9, corrected 2026-09-26.
 
 **Files added/changed:**
 - `components/molecules/AuctionBidRow/AuctionBidRow.tsx` (new)

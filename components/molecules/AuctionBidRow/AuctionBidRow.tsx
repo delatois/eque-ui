@@ -23,7 +23,7 @@ export interface AuctionBidRowProps {
 }
 
 /**
- * Eque auction bid row molecule (2.9) — dense tabular row for the
+ * Eque auction bid row molecule (bonus — outside the numbered TASKS.md plan) — dense tabular row for the
  * live bid feed: bidder chip left, tabular amount right. The leader
  * gets a primary tint and a trophy glyph plus a screen-reader
  * "Leading bid" marker (never color alone, §9).

@@ -31,7 +31,7 @@ function useNow(intervalMs = 1000) {
 }
 
 /**
- * Eque epoch countdown timer molecule (2.8) — `DD:HH:MM:SS` tabular
+ * Eque epoch countdown timer molecule (2.13) — `DD:HH:MM:SS` tabular
  * digits with a pulsing status dot while live. `role="timer"` keeps
  * assistive tech quiet (implicit `aria-live="off"`); the expired
  * state freezes at `00:00:00:00` with a static tertiary dot and fires

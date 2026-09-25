@@ -3,7 +3,7 @@ import { expect } from "storybook/test"
 import { AuctionBidRow } from "./AuctionBidRow"
 
 /**
- * Eque Auction Bid Row (2.9) — dense tabular row for the live bid
+ * Eque Auction Bid Row (bonus — outside the numbered TASKS.md plan) — dense tabular row for the live bid
  * feed: bidder chip left, tabular amount right. The leader gets a
  * primary tint + trophy glyph.
  */
