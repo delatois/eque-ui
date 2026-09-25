@@ -503,6 +503,26 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "risk-level-indicator",
+      "title": "RiskLevelIndicator",
+      "description": "Eque RiskLevelIndicator molecule: status badge pairing a glyph with the Low/Medium/High label — risk is never color alone (TASKS.md 2.7).",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/badge"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/RiskLevelIndicator/RiskLevelIndicator.tsx",
+          "target": "components/molecules/RiskLevelIndicator/RiskLevelIndicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"

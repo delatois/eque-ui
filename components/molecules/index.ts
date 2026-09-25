@@ -5,3 +5,4 @@ export * from "./TokenAmountInput";
 export * from "./WalletAddressChip";
 export * from "./NetworkSwitcher";
 export * from "./PercentageChangeIndicator";
+export * from "./RiskLevelIndicator";

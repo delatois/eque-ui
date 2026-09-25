@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 6/16
+Phase 2: 7/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -965,3 +965,34 @@ all pass with zero errors.
 - Stories: `Default` now asserts the 20px art (`data-slot="network-art"`, `aria-hidden`) instead of `#8453`; new `WithoutArt` story asserts no artwork renders when `iconSrc` is omitted; `SwitchNetwork` option matchers simplified back to exact names (art is `aria-hidden`, so accessible names are exactly the chain names).
 - Registry `network-switcher` description updated (same file, no new deps).
 - Verification: `npm run lint`, `npm run build`, `npm run registry:build` pass. Uncommitted per AGENTS.md §12 (awaiting owner decision).
+
+## [Phase 2.7] Risk Level Indicator + Storybook cleanup — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/RiskLevelIndicator/RiskLevelIndicator.tsx` (new)
+- `components/molecules/RiskLevelIndicator/RiskLevelIndicator.stories.tsx` (new)
+- `components/molecules/RiskLevelIndicator/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`risk-level-indicator` item — 22 items total)
+
+**Implemented (2.7):**
+- Status `Badge` pairing a glyph with the tier label: `low` → `success` + `ShieldCheck`, `medium` → `warning` + `TriangleAlert`, `high` → `error` + `OctagonAlert`. Risk is never color alone (§9); `data-level` attribute for tests/consumers.
+- Stories: Low, Medium, High, AllLevels side by side.
+
+**Storybook cleanup (owner request):**
+- Deleted the scaffold examples (`stories/Button.*`, `stories/Header.*`, `stories/Page.*`, `stories/assets/`) — moved to recoverable trash (30-day expiry), not permanent delete.
+- Rewrote `stories/Configure.mdx` as a simple Eque-branded landing ("Eque UI Kit"): hero panel with brand border, run commands, folder structure, token snapshot, house rules. No example imagery.
+
+**Design system references:** DESIGN.md §2, §3.3, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none (lucide glyphs only).
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `risk-level-indicator` item builds; 22 items total
