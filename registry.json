@@ -467,7 +467,7 @@
     {
       "name": "network-switcher",
       "title": "NetworkSwitcher",
-      "description": "Eque NetworkSwitcher molecule: chain picker on the Select atom — text-only chain rows (name + #id, no icons), current chain highlighted (TASKS.md 2.5).",
+      "description": "Eque NetworkSwitcher molecule: chain picker on the Select atom — iconSrc artwork + chain name rows (no icon component), current chain highlighted (TASKS.md 2.5).",
       "type": "registry:ui",
       "dependencies": [
         "cn"
@@ -479,6 +479,27 @@
         {
           "path": "components/molecules/NetworkSwitcher/NetworkSwitcher.tsx",
           "target": "components/molecules/NetworkSwitcher/NetworkSwitcher.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "percentage-change-indicator",
+      "title": "PercentageChangeIndicator",
+      "description": "Eque PercentageChangeIndicator molecule: direction glyph + signed tabular percentage (up/success, down/error, zero/neutral — never color alone) (TASKS.md 2.6).",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/typography"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/PercentageChangeIndicator/PercentageChangeIndicator.tsx",
+          "target": "components/molecules/PercentageChangeIndicator/PercentageChangeIndicator.tsx",
           "type": "registry:ui"
         }
       ]

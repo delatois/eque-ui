@@ -4,3 +4,4 @@ export * from "./ApyPill";
 export * from "./TokenAmountInput";
 export * from "./WalletAddressChip";
 export * from "./NetworkSwitcher";
+export * from "./PercentageChangeIndicator";

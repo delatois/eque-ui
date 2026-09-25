@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 5/16
+Phase 2: 6/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -930,3 +930,38 @@ all pass with zero errors.
 - [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `network-switcher` item builds; 20 items total
+
+## [Phase 2.6] Percentage Change Indicator — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/PercentageChangeIndicator/PercentageChangeIndicator.tsx` (new)
+- `components/molecules/PercentageChangeIndicator/PercentageChangeIndicator.stories.tsx` (new)
+- `components/molecules/PercentageChangeIndicator/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`percentage-change-indicator` item — 21 items total)
+
+**Implemented:**
+- Standalone molecule: `value` (signed, percent units) → direction glyph + signed tabular `%`. Direction derives from the value rounded to `decimals` (default 2), so `0.001` reads flat `0.00%` instead of a phantom up-arrow.
+- Glyphs `ArrowUpRight` / `ArrowDownRight` / `Minus` with the StatCard trend language (14px, `strokeWidth` 2, square caps, miter joins); colors `text-success` / `text-error` / `text-text-tertiary`. Glyph + `+`/`-` sign pair the color — direction is never color alone (§9).
+- Magnitude via `MonoNumber` (`text-inherit` overrides its `text-text-primary`); `showSign` (default true) prefixes gains with `+`; `data-direction` attribute for tests/consumers.
+- Stories: Up (`+2.34%`), Down (`-1.02%`), Flat (`0.00%`), RoundsToFlat (`0.001` → flat), NoSign (`12.50%`).
+
+**Design system references:** DESIGN.md §2, §3.3, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none (lucide glyphs only).
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `percentage-change-indicator` item builds; 21 items total
+
+## 2026-09-26 — NetworkSwitcher revision: `iconSrc` prop, chain id removed (owner request)
+- Rows were `name` + muted `#id`; owner asked for `(icon) [network name]`. Removed the `#id` span; added optional `iconSrc?: string` (same pattern as TokenAmountInput: decorative 20px artwork via `NetworkArt`, renders nothing when omitted, mock art lives only in the stories via the normalized `@/assets/example-mockup.png` import).
+- Stories: `Default` now asserts the 20px art (`data-slot="network-art"`, `aria-hidden`) instead of `#8453`; new `WithoutArt` story asserts no artwork renders when `iconSrc` is omitted; `SwitchNetwork` option matchers simplified back to exact names (art is `aria-hidden`, so accessible names are exactly the chain names).
+- Registry `network-switcher` description updated (same file, no new deps).
+- Verification: `npm run lint`, `npm run build`, `npm run registry:build` pass. Uncommitted per AGENTS.md §12 (awaiting owner decision).
