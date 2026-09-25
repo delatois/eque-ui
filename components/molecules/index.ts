@@ -16,3 +16,4 @@ export * from "./EmptyState";
 export * from "./ConfirmDialog";
 export * from "./Pagination";
 export * from "./LiveBadge";
+export * from "./Tabs";

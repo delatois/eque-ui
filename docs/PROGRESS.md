@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 10/16
+Phase 2: 16/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -1289,3 +1289,60 @@ all pass with zero errors.
 - [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `auction-bid-row` item builds; 24 items total
+
+## [Phase 2.9] Tabs — 2026-09-26
+
+**Files added/changed:**
+- `components/ui/tabs.tsx` (shadcn `tabs` primitive, restyled)
+- `components/molecules/Tabs/Tabs.tsx` (new)
+- `components/molecules/Tabs/Tabs.stories.tsx` (new)
+- `components/molecules/Tabs/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`tabs` item — 33 items total)
+
+**Implemented:**
+- shadcn `tabs` primitive restyled: `line` variant = Eque underline style per DESIGN.md §7.5 — active label `#1FFFC3` (text-primary) with 2px bottom rail via `::after`, inactive `#A9B5C2` (text-secondary), hairline bottom border on the list, no filled pills; mono heading labels, visible focus-visible outline.
+- Molecule: `TabDef[]` (`value`/`label`/`content`/`disabled`), controlled `value` + `onValueChange` or uncontrolled `defaultValue` (defaults to first tab).
+- Keyboard arrow navigation via the Base UI primitive's roving tabindex; disabled tabs are skipped.
+- Stories: Default, ClickToSwitch, KeyboardNavigation (ArrowRight/ArrowLeft), WithDisabled, Controlled.
+
+**Design system references:** DESIGN.md §2, §3.1, §7.5, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `tabs` item builds; 33 items total
+
+---
+
+## Phase 2 summary — Molecules — 2026-09-26
+
+**What shipped:** 16/16 numbered molecules, each a thin Eque-styled wrapper over shadcn/Base UI primitives with its own stories + play tests, barrel export, registry item, and PROGRESS recap.
+
+- 2.1 StatCard, 2.2 APYPill, 2.3 TokenAmountInput, 2.4 WalletAddressChip,
+  2.5 NetworkSwitcher, 2.6 PercentageChangeIndicator, 2.7 RiskLevelIndicator,
+  2.8 SearchFilterBar, 2.9 Tabs, 2.10 Accordion, 2.11 AlertBanner,
+  2.12 Toaster, 2.13 CountdownTimer, 2.14 EmptyState, 2.15 ConfirmDialog,
+  2.16 Pagination.
+- Bonus molecules outside the plan: AuctionBidRow, LiveBadge.
+
+**Cross-cutting conventions established (AGENTS.md §2–§9):**
+- Every component ships stories with play tests + a11y checks; status never
+  color-only (glyph/text pairing); 375px layouts, visible focus, reduced
+  motion respected; text-substitution for excluded components
+  (Token Icon / Network Icon / Avatar).
+- Registry: 33 items, namespaced `@eque/*` internal deps, `@eque/utils`
+  everywhere; binary assets never imported by shipped files (optional URL
+  prop pattern from TokenAmountInput).
+
+**Known gaps / follow-ups:**
+- Browser story play-tests still unverifiable in this sandbox
+  (Playwright/Chromium proxy incompatibility) — static builds + tooling
+  checks only.

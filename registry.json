@@ -749,6 +749,31 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "description": "Eque Tabs molecule: underline-active style per DESIGN.md §7.5 — active label in primary with 2px rail, keyboard arrow navigation (TASKS.md 2.9).",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "files": [
+        {
+          "path": "components/ui/tabs.tsx",
+          "target": "components/ui/tabs.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/molecules/Tabs/Tabs.tsx",
+          "target": "components/molecules/Tabs/Tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"
