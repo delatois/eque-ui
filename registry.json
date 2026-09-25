@@ -605,6 +605,150 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "alert-banner",
+      "title": "AlertBanner",
+      "description": "Eque AlertBanner molecule: one variant per status color — tinted bg, tinted border, 2px status rail, glyph, title, message, optional dismiss (TASKS.md 2.11).",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/ui/alert.tsx",
+          "target": "components/ui/alert.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/molecules/AlertBanner/AlertBanner.tsx",
+          "target": "components/molecules/AlertBanner/AlertBanner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "title": "Toaster",
+      "description": "Eque Toaster molecule: bottom-right 360px sharp hairline toasts with notify helpers — 5s auto-dismiss, errors persist (TASKS.md 2.12, DESIGN.md §7.6).",
+      "type": "registry:ui",
+      "dependencies": [
+        "sonner",
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "files": [
+        {
+          "path": "components/ui/sonner.tsx",
+          "target": "components/ui/sonner.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/molecules/Toaster/Toaster.tsx",
+          "target": "components/molecules/Toaster/Toaster.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "title": "EmptyState",
+      "description": "Eque EmptyState molecule: icon-less dot-grid illustration (DESIGN.md §6.2), message, optional CTA (TASKS.md 2.14).",
+      "type": "registry:ui",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/EmptyState/EmptyState.tsx",
+          "target": "components/molecules/EmptyState/EmptyState.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "confirmation-dialog",
+      "title": "ConfirmDialog",
+      "description": "Eque ConfirmDialog molecule: title, description, cancel/confirm actions; destructive variant uses the danger button (TASKS.md 2.15).",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/ui/dialog.tsx",
+          "target": "components/ui/dialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/molecules/ConfirmDialog/ConfirmDialog.tsx",
+          "target": "components/molecules/ConfirmDialog/ConfirmDialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "description": "Eque Pagination molecule: controlled page numbers with prev/next, ellipsis, disabled edge states, compact mobile variant (TASKS.md 2.16).",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/ui/pagination.tsx",
+          "target": "components/ui/pagination.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/molecules/Pagination/Pagination.tsx",
+          "target": "components/molecules/Pagination/Pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "live-badge",
+      "title": "LiveBadge",
+      "description": "Eque LiveBadge molecule (bonus): pulsing status dot + uppercase mono label for time-sensitive surfaces like the epoch auction page.",
+      "type": "registry:ui",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/LiveBadge/LiveBadge.tsx",
+          "target": "components/molecules/LiveBadge/LiveBadge.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"

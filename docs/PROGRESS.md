@@ -1094,6 +1094,175 @@ all pass with zero errors.
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `accordion` item builds; 26 items total
 
+## [Phase 2.11] Alert/Banner — 2026-09-26
+
+**Files added/changed:**
+- `components/ui/alert.tsx` (restyled — shadcn `base-mira` primitive; sharp `rounded-none`, `border-subtle`/`bg-surface`, Body S title/message tokens)
+- `components/molecules/AlertBanner/AlertBanner.tsx` (new)
+- `components/molecules/AlertBanner/AlertBanner.stories.tsx` (new)
+- `components/molecules/AlertBanner/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`alert-banner` item — bundles `ui/alert.tsx`; 32 items total)
+
+**Implemented:**
+- One variant per status color (`info`/`success`/`warning`/`error`) per DESIGN.md §7.6: tinted bg (10%), tinted border (32%), 2px status rail on the left, 20px status glyph.
+- Title (Body S, 500) + optional message (Body S, secondary); `role="alert"`, sr-only status label + `data-status` so status is never color alone.
+- Dismissible variant: icon X button in `AlertAction`, `onDismiss` callback.
+- Stories: Info, Success, Warning, Error, Dismissible (interactive), TitleOnly.
+
+**Design system references:** DESIGN.md §2, §3.3, §7.6
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `alert-banner` item builds
+
+## [Phase 2.12] Toast Notification — 2026-09-26
+
+**Files added/changed:**
+- `components/ui/sonner.tsx` (restyled — shadcn `base-mira` sonner; dropped `next-themes` for fixed dark, Eque CSS vars: 360px width, surface bg, subtle border, 0 radius, z-500, per-type icon colors)
+- `components/molecules/Toaster/Toaster.tsx` (new)
+- `components/molecules/Toaster/Toaster.stories.tsx` (new)
+- `components/molecules/Toaster/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`toast` item — bundles `ui/sonner.tsx`; 32 items total)
+
+**Implemented:**
+- `Toaster` mount-once component (bottom-right per DESIGN.md §7.6).
+- `notify` helpers with §7.6 timing baked in: success/info/warning auto-dismiss 5s, errors persist (`duration: Infinity`); `pending` returns the toast id for later resolve via `notify.success/error(msg, { id })`; `notify.dismiss(id?)`.
+- Re-exports raw `toast` from "sonner" for escape hatches.
+- Stories: Playground with all five variants fired from buttons; play test asserts success + error toasts render.
+
+**Design system references:** DESIGN.md §2, §3.3, §7.6
+
+**Deviations from DESIGN.md (if any) and why:** none. (L3 elevation is tonal + hairline per §5 — no drop shadow.)
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4). Sonner v2 auto-injects its CSS at runtime — no stylesheet import needed.
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `toast` item builds
+
+## [Phase 2.14] Empty State — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/EmptyState/EmptyState.tsx` (new)
+- `components/molecules/EmptyState/EmptyState.stories.tsx` (new)
+- `components/molecules/EmptyState/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`empty-state` item; 32 items total)
+
+**Implemented:**
+- Icon-less illustration per DESIGN.md §6.2: pixel dot-grid (radial-gradient, masked to a soft circle) framed by four corner brackets in `primary-a32`.
+- `title` (heading), optional `description` (body, secondary), optional `action` ReactNode (usually a Button).
+- Stories: Default, WithAction, TitleOnly.
+
+**Design system references:** DESIGN.md §2, §3.3, §6.2
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `empty-state` item builds
+
+## [Phase 2.15] Confirmation Dialog — 2026-09-26
+
+**Files added/changed:**
+- `components/ui/dialog.tsx` (restyled — shadcn `base-mira` primitive; sharp `rounded-none`, `border-subtle`/`bg-surface`, heading-lg title, Body S description; close button fixed to Eque `icon`/`sm` variants)
+- `components/molecules/ConfirmDialog/ConfirmDialog.tsx` (new)
+- `components/molecules/ConfirmDialog/ConfirmDialog.stories.tsx` (new)
+- `components/molecules/ConfirmDialog/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`confirmation-dialog` item — bundles `ui/dialog.tsx`; 32 items total)
+
+**Implemented:**
+- Title, description, cancel/confirm actions in `DialogFooter`.
+- Destructive variant renders the danger button for confirm (`data-variant` for tests).
+- `confirmLoading` shows a spinner in the confirm button and disables cancel (async actions).
+- Controlled (`open`/`onOpenChange`) or uncontrolled with a trigger child (Base UI `render` prop — not Radix `asChild`).
+- Stories: Default (trigger → opens, both actions visible), Destructive (danger confirm fires `onConfirm`), ConfirmLoading.
+
+**Design system references:** DESIGN.md §2, §3.3, §8
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `confirmation-dialog` item builds
+
+## [Phase 2.16] Pagination — 2026-09-26
+
+**Files added/changed:**
+- `components/ui/pagination.tsx` (restyled — shadcn `base-mira` primitive; fixed non-existent `outline`/`ghost`/`icon`/`default` variants+sizes to Eque `secondary`/`icon` + `sm`; sharp corners)
+- `components/molecules/Pagination/Pagination.tsx` (new)
+- `components/molecules/Pagination/Pagination.stories.tsx` (new)
+- `components/molecules/Pagination/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`pagination` item — bundles `ui/pagination.tsx`; 32 items total)
+
+**Implemented:**
+- Controlled (`page` 1-based, `pageCount`, `onPageChange`, `siblingCount` default 1); renders nothing when `pageCount < 2`.
+- Ellipsis-collapsed range (first/last always visible), `aria-current="page"` on the active link, `aria-disabled` + no-op on edge prev/next.
+- Compact mobile variant: icon prev/next flanking a "Page X of Y" mono readout.
+- Stories: Default, GoToPage, FirstPageEdge, LastPageEdge, Compact, CompactFirstPage — all interactive via local state.
+
+**Design system references:** DESIGN.md §2, §3.3, §8
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `pagination` item builds
+
+## [Bonus] LiveBadge — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/LiveBadge/LiveBadge.tsx` (new)
+- `components/molecules/LiveBadge/LiveBadge.stories.tsx` (new)
+- `components/molecules/LiveBadge/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`live-badge` item; 32 items total)
+
+**Implemented:**
+- Bonus molecule (outside the TASKS.md plan): pulsing teal dot + uppercase mono label for time-sensitive surfaces (e.g. the epoch auction page).
+- States: `live` (pulsing dot, collapses to static under `prefers-reduced-motion`), `upcoming` (info dot), `ended` (dim dot); custom `label` override.
+- Stories: Live, Upcoming, Ended, CustomLabel.
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `live-badge` item builds
+
 **Files added/changed:**
 - `components/molecules/AuctionBidRow/AuctionBidRow.tsx` (new)
 - `components/molecules/AuctionBidRow/AuctionBidRow.stories.tsx` (new)
