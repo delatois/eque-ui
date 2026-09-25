@@ -463,6 +463,25 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "network-switcher",
+      "title": "NetworkSwitcher",
+      "description": "Eque NetworkSwitcher molecule: chain picker on the Select atom — text-only chain rows (name + #id, no icons), current chain highlighted (TASKS.md 2.5).",
+      "type": "registry:ui",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/select"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/NetworkSwitcher/NetworkSwitcher.tsx",
+          "target": "components/molecules/NetworkSwitcher/NetworkSwitcher.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"

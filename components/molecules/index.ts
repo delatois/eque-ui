@@ -3,3 +3,4 @@ export * from "./StatCard";
 export * from "./ApyPill";
 export * from "./TokenAmountInput";
 export * from "./WalletAddressChip";
+export * from "./NetworkSwitcher";

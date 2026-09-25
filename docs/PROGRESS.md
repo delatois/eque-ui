@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 4/16
+Phase 2: 5/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -899,3 +899,34 @@ all pass with zero errors.
 - Owner reported the External error state story's card still misaligned. Root cause: when `error` is set, the Input atom appends its `role="alert"` message (~24px: text-xs + gap-2) below the field inside the input column. The field row was `items-center`, so the column grew to ~68px and the 44px field got vertically centered — pushed ~12px UP relative to the 44px Select trigger, with the Max button dropping along.
 - Fix: field row is now `items-start` — field and trigger stay top-aligned (both exactly 44px) in every state; the error message hangs below the field and pushes the estimate/slider down naturally. Non-error state unchanged (field/trigger were already 44px; Max sits top-aligned).
 - Verification: `npm run lint` and `npm run build` pass. Uncommitted per AGENTS.md §12 (awaiting owner decision).
+
+## [Phase 2.5] Network Switcher — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/NetworkSwitcher/NetworkSwitcher.tsx` (new)
+- `components/molecules/NetworkSwitcher/NetworkSwitcher.stories.tsx` (new)
+- `components/molecules/NetworkSwitcher/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`network-switcher` item — 20 items total)
+
+**Implemented:**
+- Chain picker on the `Select` atom: `chains` (local `NetworkChain` type — structurally compatible with `lib/mock-data/chains.ts`, kept local so the registry item ships zero mock-data imports), controlled `value` / uncontrolled `defaultValue` (chain ids), `onValueChange(chainId: number)`.
+- Rows render as text only — name + muted `#id` (AGENTS.md §1: no chain icons); current chain highlighted by the atom's selected-item treatment (`data-selected:bg-primary-a16` + primary check indicator).
+- Compact trigger (`w-auto`); ids map to the atom's string values internally.
+- Accessible name via native sr-only `<label htmlFor>` ("Network") — same pattern as TokenAmountInput, avoids the atom's visible-height label wrapper.
+- Stories: Default (Base #8453), SwitchNetwork (opens popup, picks Arbitrum, asserts trigger + spy called with `42161`), NoSelection (placeholder), Disabled.
+
+**Design system references:** DESIGN.md §2, §3.3, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** chain identity is text (name + `#id`); no icon component abstracted.
+
+**Known gaps / follow-ups:**
+- Browser story play-tests still unverifiable in this sandbox (Playwright/Chromium 152 issue documented under 2.4). The `SwitchNetwork` play follows the proven TokenAmountInput `TokenSwitcher` pattern (`combobox` → portaled `listbox` → `option` click); option accessible names are `"Name #id"`, hence regex matchers in the story.
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `network-switcher` item builds; 20 items total
