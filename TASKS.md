@@ -141,7 +141,7 @@ Keep a running count at the top of `docs/PROGRESS.md`, e.g.:
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 9/16
+Phase 2: 10/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4

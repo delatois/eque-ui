@@ -587,6 +587,24 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "description": "Eque Accordion molecule: sharp hairline-divided collapsible sections — single/multi-open modes, animated expand/collapse that respects prefers-reduced-motion (TASKS.md 2.10).",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react",
+        "cn"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/Accordion/Accordion.tsx",
+          "target": "components/molecules/Accordion/Accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"

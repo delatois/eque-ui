@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 9/16
+Phase 2: 10/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -1062,6 +1062,37 @@ all pass with zero errors.
 - [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `search-filter-bar` item builds; 25 items total
+
+## [Phase 2.10] Accordion — 2026-09-26
+
+**Files added/changed:**
+- `components/ui/accordion.tsx` (new — shadcn `base-mira` primitive on `@base-ui/react/accordion`, installed via CLI)
+- `components/molecules/Accordion/Accordion.tsx` (new)
+- `components/molecules/Accordion/Accordion.stories.tsx` (new)
+- `components/molecules/Accordion/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `app/globals.css` (`--animate-accordion-down/up` theme tokens + keyframes)
+- `registry.json` (`accordion` item — 26 items total)
+
+**Implemented:**
+- Built directly on the Base UI primitive (Eque-styled, not the raw shadcn skin): `AccordionItemDef[]` (`value`/`title`/`content`/`disabled?`), `multiple?: boolean` (default false), controlled/uncontrolled `value: string[]` + `onValueChange(value: string[])`.
+- Sharp `rounded-none` frame, `border-subtle` hairlines between items, `bg-surface`; trigger `font-heading text-sm` with rotating `ChevronDown` (`aria-expanded` drives the rotation); content `font-body text-sm text-text-secondary`.
+- Expand/collapse animates panel height via `--accordion-panel-height` keyframes (`animate-accordion-down/up`, 200ms `ease-eque`); the global `prefers-reduced-motion` reset collapses it to instant open/close.
+- Stories: Single (open-one-closes-other), Multiple (two open), Collapsed, DisabledItem.
+
+**Design system references:** DESIGN.md §2, §3.3, §8
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `accordion` item builds; 26 items total
 
 **Files added/changed:**
 - `components/molecules/AuctionBidRow/AuctionBidRow.tsx` (new)

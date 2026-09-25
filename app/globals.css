@@ -121,6 +121,31 @@
       left: 100%;
     }
   }
+
+  /* Accordion expand/collapse (TASKS.md 2.10). Height is driven by
+     Base UI's --accordion-panel-height on the panel; the global
+     prefers-reduced-motion reset below collapses these to instant
+     open/close. */
+  --animate-accordion-down: accordion-down 200ms var(--ease-eque);
+  --animate-accordion-up: accordion-up 200ms var(--ease-eque);
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--accordion-panel-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--accordion-panel-height);
+    }
+    to {
+      height: 0;
+    }
+  }
 }
 
 /* shadcn primitive compat: map shadcn semantic vars onto the Eque palette
