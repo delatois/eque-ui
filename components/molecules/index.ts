@@ -7,3 +7,4 @@ export * from "./NetworkSwitcher";
 export * from "./PercentageChangeIndicator";
 export * from "./RiskLevelIndicator";
 export * from "./EpochCountdownTimer";
+export * from "./AuctionBidRow";

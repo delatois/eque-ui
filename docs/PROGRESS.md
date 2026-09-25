@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 8/16
+Phase 2: 9/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -1026,3 +1026,32 @@ all pass with zero errors.
 - [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
 - [x] `build-storybook` succeeds
 - [x] `registry:build` succeeds — `epoch-countdown-timer` item builds; 23 items total
+
+## [Phase 2.9] Auction Bid Row — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/AuctionBidRow/AuctionBidRow.tsx` (new)
+- `components/molecules/AuctionBidRow/AuctionBidRow.stories.tsx` (new)
+- `components/molecules/AuctionBidRow/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`auction-bid-row` item — 24 items total)
+
+**Implemented:**
+- Dense tabular row: `WalletAddressChip` (bidder, `min-w-0`) left, tabular `MonoNumber` amount right (`ml-auto`), optional muted `symbol`.
+- `bidder: string`, `amount: number`, `symbol?: string`, `decimals` (default 4 — premiums are small), `isLeader?: boolean`.
+- Leader: `bg-primary-a16` tint + `Trophy` glyph in `text-primary` + sr-only "Leading bid" marker (never color alone, §9); `data-leader` attribute.
+- Stories: Leader, Outbid, BidFeed (3-row feed in a `border-subtle` frame).
+
+**Design system references:** DESIGN.md §2, §3.3, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `auction-bid-row` item builds; 24 items total
