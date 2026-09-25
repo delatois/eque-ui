@@ -8,3 +8,4 @@ export * from "./PercentageChangeIndicator";
 export * from "./RiskLevelIndicator";
 export * from "./EpochCountdownTimer";
 export * from "./AuctionBidRow";
+export * from "./SearchFilterBar";

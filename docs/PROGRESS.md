@@ -3,7 +3,7 @@
 ```
 Phase 0: 11/11
 Phase 1: 14/14
-Phase 2: 8/16
+Phase 2: 9/16
 Phase 3: 0/6
 Phase 4: 0/6
 Phase 5: 0/4
@@ -1032,6 +1032,36 @@ all pass with zero errors.
 ## [Bonus] Auction Bid Row — 2026-09-26
 
 > Not in the numbered TASKS.md plan — extra molecule for the /auction bid feed; originally mislabeled 2.9, corrected 2026-09-26.
+
+## [Phase 2.8] Search & Filter Bar — 2026-09-26
+
+**Files added/changed:**
+- `components/molecules/SearchFilterBar/SearchFilterBar.tsx` (new)
+- `components/molecules/SearchFilterBar/SearchFilterBar.stories.tsx` (new)
+- `components/molecules/SearchFilterBar/index.ts` (new)
+- `components/molecules/index.ts` (barrel export)
+- `registry.json` (`search-filter-bar` item — 25 items total)
+
+**Implemented:**
+- Search `Input` (search icon, sr-only native label, controlled/uncontrolled `searchValue` + `onSearchChange`) beside filter `Select` dropdowns driven by `FilterDef[]` (`id`/`label`/`options`).
+- `activeFilters: Record<filterId, value | null>` controlled/uncontrolled + `onFilterChange(filterId, value | null)`; dropdowns use the sr-only-label pattern (no atom label wrapper offset).
+- Active-filter chips (`Badge` neutral, `normal-case` override): `{Filter}: {Option}` + per-chip X (`aria-label="Clear {Filter} filter"`); "Clear all" (`Button` tertiary sm) resets everything and fires `onClearAll`.
+- Chips row renders only when at least one filter is active.
+- Stories: Default (2 preset filters → 2 chips), SearchTyping, ClearOneChip, ClearAll, NoActiveFilters.
+
+**Design system references:** DESIGN.md §2, §3.3, §7.2, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `search-filter-bar` item builds; 25 items total
 
 **Files added/changed:**
 - `components/molecules/AuctionBidRow/AuctionBidRow.tsx` (new)

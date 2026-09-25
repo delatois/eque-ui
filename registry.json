@@ -564,6 +564,29 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "search-filter-bar",
+      "title": "SearchFilterBar",
+      "description": "Eque SearchFilterBar molecule: search field + filter dropdowns (chain, risk, status) with active-filter chips and clear-all (TASKS.md 2.8).",
+      "type": "registry:ui",
+      "dependencies": [
+        "lucide-react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/input",
+        "@eque/select",
+        "@eque/badge",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/SearchFilterBar/SearchFilterBar.tsx",
+          "target": "components/molecules/SearchFilterBar/SearchFilterBar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"
