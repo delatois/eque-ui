@@ -818,3 +818,42 @@ all pass with zero errors.
 - [x] `build-storybook` succeeds
 - [x] 9/9 TokenAmountInput story tests pass
 - [x] Playwright: no overflow at 480px on Default/TokenSwitcher/SliderSetsAmount, 375px scrollWidth=375, popup column list with art renders, zero console/page errors
+
+## [Registry] shadcn registry distribution pipeline — 2026-09-26
+
+**Files added/changed:**
+- `registry.json` (new) — distribution manifest: 18 items (14 atoms + `apy-pill`, `stat-card`, `token-amount-input` + `utils` lib)
+- `package.json` — added `registry:build` script (`shadcn build`)
+- `.gitignore` — added `/public/r` (generated output, rebuilt at deploy time)
+- `AGENTS.md` — added §16 documenting the registry workflow
+
+**Implemented:**
+- Registry items use kebab-case names (`button`, `radio-group`, `apy-pill`, ...); components are `registry:ui`, shared utils is `registry:lib`.
+- Each atom item bundles its Eque-customized primitive (`components/ui/*.tsx`) so the install is self-contained; file targets preserve the repo's atoms/molecules taxonomy (`components/atoms/Button/Button.tsx`).
+- `dependencies` per item = exact runtime npm deps mapped from real imports (`@base-ui/react`, `class-variance-authority`, `cn`, `lucide-react` as applicable).
+- `registryDependencies` use the **namespaced** `@eque/*` form (NOT plain names). Verified 2026-09-26: plain names resolve against shadcn's default registry — the `button` test installed shadcn's scaffold `utils.ts` (1 line) instead of Eque's `lib/utils.ts` with formatters, and `apy-pill` failed outright on `typography`.
+- Consumer setup: `"registries": { "@eque": "https://eque-ui.vercel.app/r/{name}.json" }` in `components.json`, then `npx shadcn@latest add @eque/button`.
+- Vercel note: the Storybook deployment serves `storybook-static/`, not Next's `public/` — the deploy build command must be `npm run registry:build && npm run build-storybook && cp -r public/r storybook-static/r` so `/r/*.json` is served from the same deployment.
+
+**Design system references:** N/A (distribution mechanism, no visual change).
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none (no component changed).
+
+**Known gaps / follow-ups:**
+- `token-amount-input` EXCLUDED from v1: the component bakes in `import mockupIcon from "@/assets/example-mockup.png"` and binary assets cannot be inlined into registry JSON. Unblock options: (a) add an `iconSrc` prop with the mock as default, or (b) switch to the AGENTS.md §1 text-ticker placeholder.
+
+## 2026-09-26 — TokenAmountInput `iconSrc` prop + registry item (owner decision: option (a))
+- Added optional `iconSrc?: string` to `TokenAmountInputProps`: decorative 20px artwork in the dropdown trigger/rows; renders nothing when omitted (ticker text carries identity, AGENTS.md §1 — no Token Icon component).
+- Removed `import mockupIcon from "@/assets/example-mockup.png"`, `StaticImageData`, and the exported `TOKEN_ICON_SRC` from the component. Mock art moved to `TokenAmountInput.stories.tsx` (same normalize pattern as `Select.stories.tsx`), passed via `meta.args.iconSrc` to all stories.
+- Added `token-amount-input` registry item: files `TokenAmountInput.tsx` only; deps `cn`; registryDependencies `@eque/utils` + atoms `@eque/button,input,select,slider,typography`. Registry rebuilt: 18 items / 19 JSON files, all parse.
+- Verification: `npm run lint` pass; `npm run build` (next build + TS) pass; `npm run registry:build` pass. Browser story tests pending Playwright install in this environment.
+- AGENTS.md §16 updated with the binary-asset pattern (URL prop + mock in stories).
+- Theme CSS (`app/globals.css` tokens) is NOT distributed yet — consumers copy it manually for now. A `@eque/theme` registry item is a follow-up.
+- New components added in later phases must get a registry item in the same pass (see AGENTS.md §16); consider adding that to the Definition of Done.
+
+**Verification performed:**
+- [x] `npm run registry:build` succeeds — 18 JSON files in `public/r/`, all parse as valid JSON
+- [x] End-to-end install test into a scratch project: `npx shadcn@latest add @eque/apy-pill` (via `@eque` namespace) created 7 files (`ApyPill` + `badge`/`tooltip`/`typography` atoms + their primitives + Eque's `lib/utils.ts` with formatters), auto-installed npm deps, and every `@/` import in the installed files resolves to an installed file
+- [x] `lint` not re-run (no component source changed); `build-storybook` unaffected (registry output is gitignored and independent)

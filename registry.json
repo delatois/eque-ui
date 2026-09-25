@@ -1,0 +1,446 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "homepage": "https://eque-ui.vercel.app",
+  "items": [
+    {
+      "dependencies": [
+        "cn"
+      ],
+      "description": "cn() re-export plus Eque formatters: currency, percentage, number, address truncation (TASKS.md 0.8).",
+      "files": [
+        {
+          "path": "lib/utils.ts",
+          "target": "lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "name": "utils",
+      "title": "Shared utilities",
+      "type": "registry:lib"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque Button atom: primary / secondary / tertiary / danger / icon variants, sm/md/lg, loading state (TASKS.md 1.1).",
+      "files": [
+        {
+          "path": "components/atoms/Button/Button.tsx",
+          "target": "components/atoms/Button/Button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/button.tsx",
+          "target": "components/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "button",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Button",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque Input atom: text and amount (decimal-aware) variants with error/success states (TASKS.md 1.2).",
+      "files": [
+        {
+          "path": "components/atoms/Input/Input.tsx",
+          "target": "components/atoms/Input/Input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "target": "components/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "input",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Input",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque Select atom: single-select dropdown with open/disabled/error states (TASKS.md 1.3).",
+      "files": [
+        {
+          "path": "components/atoms/Select/Select.tsx",
+          "target": "components/atoms/Select/Select.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/select.tsx",
+          "target": "components/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "select",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Select",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque Checkbox atom: unchecked / checked / indeterminate / disabled (TASKS.md 1.4).",
+      "files": [
+        {
+          "path": "components/atoms/Checkbox/Checkbox.tsx",
+          "target": "components/atoms/Checkbox/Checkbox.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/checkbox.tsx",
+          "target": "components/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "checkbox",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Checkbox",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "description": "Eque Radio Group atom: unselected / selected / disabled (TASKS.md 1.5).",
+      "files": [
+        {
+          "path": "components/atoms/RadioGroup/RadioGroup.tsx",
+          "target": "components/atoms/RadioGroup/RadioGroup.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/radio-group.tsx",
+          "target": "components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "radio-group",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Radio Group",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "description": "Eque Toggle/Switch atom: off / on / disabled (TASKS.md 1.6).",
+      "files": [
+        {
+          "path": "components/atoms/Switch/Switch.tsx",
+          "target": "components/atoms/Switch/Switch.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/switch.tsx",
+          "target": "components/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "switch",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Switch",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque Badge/Tag atom: neutral, brand, and status variants, optional removable (TASKS.md 1.7).",
+      "files": [
+        {
+          "path": "components/atoms/Badge/Badge.tsx",
+          "target": "components/atoms/Badge/Badge.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/badge.tsx",
+          "target": "components/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "badge",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Badge",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "description": "Eque Tooltip atom: default, with arrow, long content (TASKS.md 1.8).",
+      "files": [
+        {
+          "path": "components/atoms/Tooltip/Tooltip.tsx",
+          "target": "components/atoms/Tooltip/Tooltip.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/tooltip.tsx",
+          "target": "components/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "tooltip",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Tooltip",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "description": "Eque Progress Bar atom: linear and segmented (block) variants, incl. indeterminate (TASKS.md 1.9).",
+      "files": [
+        {
+          "path": "components/atoms/ProgressBar/ProgressBar.tsx",
+          "target": "components/atoms/ProgressBar/ProgressBar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/progress.tsx",
+          "target": "components/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "progress",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Progress Bar",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque Spinner atom: custom sm/md/lg loader, no primitive dependency (TASKS.md 1.10).",
+      "files": [
+        {
+          "path": "components/atoms/Spinner/Spinner.tsx",
+          "target": "components/atoms/Spinner/Spinner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "spinner",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Spinner",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "description": "Eque Skeleton Loader atom: text line, card block, table row (TASKS.md 1.11).",
+      "files": [
+        {
+          "path": "components/atoms/Skeleton/Skeleton.tsx",
+          "target": "components/atoms/Skeleton/Skeleton.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/skeleton.tsx",
+          "target": "components/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "skeleton",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Skeleton",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "description": "Eque Divider atom: horizontal / vertical hairline separators (TASKS.md 1.12).",
+      "files": [
+        {
+          "path": "components/atoms/Divider/Divider.tsx",
+          "target": "components/atoms/Divider/Divider.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/separator.tsx",
+          "target": "components/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "divider",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Divider",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "description": "Eque Typography atoms: Heading (display/h1-h5), Text (lead/body/caption), MonoNumber with tabular figures (TASKS.md 1.13).",
+      "files": [
+        {
+          "path": "components/atoms/Typography/Typography.tsx",
+          "target": "components/atoms/Typography/Typography.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "typography",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Typography",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "description": "Eque Slider atom: sm/md/lg, horizontal/vertical, controlled, range and multi-thumb (TASKS.md 1.14).",
+      "files": [
+        {
+          "path": "components/atoms/Slider/Slider.tsx",
+          "target": "components/atoms/Slider/Slider.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/slider.tsx",
+          "target": "components/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "slider",
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "title": "Slider",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque ApyPill molecule: APY display pill with tooltip breakdown (TASKS.md Phase 2).",
+      "files": [
+        {
+          "path": "components/molecules/ApyPill/ApyPill.tsx",
+          "target": "components/molecules/ApyPill/ApyPill.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "apy-pill",
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/tooltip",
+        "@eque/typography"
+      ],
+      "title": "ApyPill",
+      "type": "registry:ui"
+    },
+    {
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "description": "Eque StatCard molecule: label + MonoNumber value + delta, with skeleton loading state (TASKS.md Phase 2).",
+      "files": [
+        {
+          "path": "components/molecules/StatCard/StatCard.tsx",
+          "target": "components/molecules/StatCard/StatCard.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "name": "stat-card",
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/divider",
+        "@eque/skeleton",
+        "@eque/typography"
+      ],
+      "title": "StatCard",
+      "type": "registry:ui"
+    },
+    {
+      "name": "token-amount-input",
+      "title": "TokenAmountInput",
+      "description": "Eque TokenAmountInput molecule: amount field + token dropdown (iconSrc prop) + Max button + USD estimate + percentage slider (TASKS.md 2.3).",
+      "type": "registry:ui",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button",
+        "@eque/input",
+        "@eque/select",
+        "@eque/slider",
+        "@eque/typography"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/TokenAmountInput/TokenAmountInput.tsx",
+          "target": "components/molecules/TokenAmountInput/TokenAmountInput.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ],
+  "name": "@eque"
+}

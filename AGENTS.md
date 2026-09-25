@@ -313,6 +313,28 @@ Work **one component (or one clearly-scoped task) at a time**. Do not batch mult
 - [ ] `docs/PROGRESS.md` recap entry written
 - [ ] `TASKS.md` checkbox updated
 
+## 16. Registry Distribution (shadcn)
+
+This repo ships its components to consumers (e.g. `eque-web`) as a **shadcn registry**, not an npm package. `registry.json` at the repo root is the distribution manifest; `npm run registry:build` regenerates `public/r/*.json` (gitignored — rebuilt at deploy time, never committed).
+
+**When you finish a component, add/update its registry item in the same pass** (treat it as part of "done"):
+
+- `name`: kebab-case (`button`, `radio-group`, `apy-pill`). `type`: `registry:ui` for components, `registry:lib` for shared lib files.
+- `files`: one entry per source file. **Bundle the Eque-customized primitive** from `components/ui/` into the same item so the install is self-contained. `target` preserves the repo taxonomy (e.g. `components/atoms/Button/Button.tsx`), never flattens into `components/ui/`.
+- `dependencies`: the exact runtime npm packages the item's files import (`@base-ui/react`, `class-variance-authority`, `cn`, `lucide-react` as applicable — never `react`, never type-only imports).
+- `registryDependencies`: **always the namespaced `@eque/*` form** (e.g. `["@eque/utils", "@eque/badge"]`). Plain names resolve against shadcn's default registry, not ours — this was verified broken on 2026-09-26 (wrong `utils.ts` installed, `typography` hard-failed). Every component item also depends on `@eque/utils`.
+- Do not add a component whose file imports a binary asset — registry JSON can only inline text. Pattern: the component takes an optional URL prop (e.g. `iconSrc?: string`, renders nothing when omitted) and the mock asset import lives in the STORIES file (cf. `Select.stories.tsx`), never in the shipped component. `token-amount-input` follows this pattern since 2026-09-26.
+
+**Consumer contract** (for reference; consumers configure this, not this repo):
+
+```json
+"registries": { "@eque": "https://eque-ui.vercel.app/r/{name}.json" }
+```
+
+then `npx shadcn@latest add @eque/button`. The Vercel deployment serves Storybook from `storybook-static/`, so its build command must copy the registry output in: `npm run registry:build && npm run build-storybook && cp -r public/r storybook-static/r`.
+
+**Known limitation:** the theme CSS (`app/globals.css` tokens) is not distributed yet — consumers copy it manually. A `@eque/theme` item is a future task.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

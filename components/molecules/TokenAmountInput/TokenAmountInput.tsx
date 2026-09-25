@@ -8,23 +8,7 @@ import { Slider } from "@/components/atoms/Slider"
 import { MonoNumber } from "@/components/atoms/Typography"
 import { formatCurrency, formatNumber } from "@/lib/utils"
 import type { Token } from "@/lib/mock-data/tokens"
-import mockupIcon from "@/assets/example-mockup.png"
-import type { StaticImageData } from "next/image"
 import { cn } from "cn"
-
-/**
- * Mock token logo (user-supplied `assets/example-mockup.png`) — the
- * same placeholder the Select atom's stories use for network/token/
- * avatar art. Next image imports resolve to `{ src, … }` while Vite
- * resolves to a URL string; normalize to a plain URL for the `<img>`.
- * Every token shares the one mock image: placeholder art, not an icon
- * system (AGENTS.md §1), deliberately NOT abstracted into a Token
- * Icon component.
- */
-export const TOKEN_ICON_SRC: string =
-  typeof mockupIcon === "string"
-    ? mockupIcon
-    : (mockupIcon as StaticImageData).src
 
 export interface TokenAmountInputProps {
   /** Currently selected token: ticker art + `decimals` cap. */
@@ -33,6 +17,13 @@ export interface TokenAmountInputProps {
   tokens?: Token[]
   /** Fires when the dropdown picks another token. */
   onTokenChange?: (token: Token) => void
+  /**
+   * Token icon image URL (e.g. `https://…/usdc.png`). Rendered as
+   * decorative 20px artwork in the dropdown trigger and popup rows.
+   * When omitted, no artwork renders — the ticker text carries the
+   * identity (AGENTS.md §1: no Token Icon component is built).
+   */
+  iconSrc?: string
   /** Available balance of the current token (Max target + slider base). */
   balance: number
   /** Token price in USD; when provided, an estimate renders below. */
@@ -68,12 +59,13 @@ export function formatMaxValue(amount: number, decimals: number): string {
   return String(rounded)
 }
 
-/** Mock token artwork: 20px sharp image, decorative. */
-function TokenArt() {
+/** Token artwork: 20px sharp image, decorative. Renders nothing when no `iconSrc` is provided. */
+function TokenArt({ src }: { src?: string }) {
+  if (!src) return null
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- local mock placeholder, not a production asset
+    // eslint-disable-next-line @next/next/no-img-element -- consumer-supplied art, not a bundled asset
     <img
-      src={TOKEN_ICON_SRC}
+      src={src}
       alt=""
       aria-hidden="true"
       data-slot="token-art"
@@ -101,6 +93,7 @@ function TokenAmountInput({
   token,
   tokens,
   onTokenChange,
+  iconSrc,
   balance,
   tokenPriceUsd,
   label = "Amount",
@@ -189,7 +182,7 @@ function TokenAmountInput({
             value: t.symbol,
             label: (
               <span className="flex items-center gap-1.5">
-                <TokenArt />
+                <TokenArt src={iconSrc} />
                 <span className="font-heading text-[11px] font-medium uppercase">
                   {t.symbol}
                 </span>

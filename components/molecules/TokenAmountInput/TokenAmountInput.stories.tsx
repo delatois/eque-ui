@@ -2,10 +2,23 @@ import * as React from "react"
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect, fn, screen, userEvent, waitFor } from "storybook/test"
 import { getMockTokens } from "@/lib/mock-data/tokens"
-import { TokenAmountInput, TOKEN_ICON_SRC } from "./TokenAmountInput"
+import { TokenAmountInput } from "./TokenAmountInput"
+import mockupIcon from "@/assets/example-mockup.png"
+import type { StaticImageData } from "next/image"
 
 const [usdc, , , weth] = getMockTokens()
 const superlong = getMockTokens().find((t) => t.symbol === "SUPERLONG")!
+
+/**
+ * Mock token artwork for stories (same pattern as Select.stories.tsx):
+ * Next image imports resolve to `{ src, … }` while Vite resolves to a
+ * URL string; normalize to a plain URL and pass via the `iconSrc` prop.
+ * Placeholder art, not an icon system (AGENTS.md §1).
+ */
+const mockupIconSrc: string =
+  typeof (mockupIcon as unknown) === "string"
+    ? (mockupIcon as unknown as string)
+    : (mockupIcon as StaticImageData).src
 
 /**
  * Eque Token Amount Input (2.3) — amount field (`Input` number
@@ -33,6 +46,9 @@ const meta = {
     ),
   ],
   tags: ["autodocs"],
+  args: {
+    iconSrc: mockupIconSrc,
+  },
   argTypes: {
     label: {
       control: "text",
@@ -175,7 +191,7 @@ export const TokenArt: Story = {
     await expect(art).toHaveAttribute("width", "20")
     await expect(art).toHaveAttribute("aria-hidden", "true")
     await expect(art.getAttribute("src") ?? "").toContain("example-mockup")
-    await expect(TOKEN_ICON_SRC).toContain("example-mockup")
+    await expect(mockupIconSrc).toContain("example-mockup")
     // Long tickers render in full inside the trigger — no truncation.
     await expect(
       canvas.getByRole("combobox", { name: "Token" })
