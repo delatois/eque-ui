@@ -80,12 +80,12 @@ Depends on Phase 1. Each row lists its main atom dependencies.
 
 Depends on Phases 1–2.
 
-- [ ] **3.1 Wallet Connect Modal** — Dialog listing mock wallet providers (MetaMask, WalletConnect, Coinbase Wallet, etc. as plain labeled rows — no provider icons per the exclusion rule); loading state per provider row while "connecting"; error state for a failed mock connection.
-- [ ] **3.2 Account Dropdown** — Dropdown-menu triggered from a wallet-address chip; shows truncated address, mock balance, network switcher entry point, disconnect action.
-- [ ] **3.3 Transaction Status Modal/Toast** — Pending → Success/Failed progression (drive with mock state in the story, e.g. a `Simulate` control or auto-timeout), link out to a mock block-explorer URL, tx hash chip.
-- [ ] **3.4 Approve Token Flow** — Two-step composite (Approve → Deposit) built from Button + Progress/Stepper indicator; clearly shows which step is active/complete/pending; explains in copy why approval is needed.
-- [ ] **3.5 Gas Fee Estimator** — Estimated fee in native token + USD, speed selector (slow/standard/fast) if relevant, loading/skeleton state while "estimating."
-- [ ] **3.6 Notification/Activity Feed** — List of recent account events (deposit, withdraw, compound, approve) using `transactions.ts` mock data; empty state; relative timestamps.
+- [x] **3.1 Wallet Connect Modal** — Dialog listing mock wallet providers (MetaMask, WalletConnect, Coinbase Wallet, etc. as plain labeled rows — no provider icons per the exclusion rule); loading state per provider row while "connecting"; error state for a failed mock connection.
+- [x] **3.2 Account Dropdown** — Dropdown-menu triggered from a wallet-address chip; shows truncated address, mock balance, network switcher entry point, disconnect action.
+- [x] **3.3 Transaction Status Modal/Toast** — Pending → Success/Failed progression (drive with mock state in the story, e.g. a `Simulate` control or auto-timeout), link out to a mock block-explorer URL, tx hash chip.
+- [x] **3.4 Approve Token Flow** — Two-step composite (Approve → Deposit) built from Button + Progress/Stepper indicator; clearly shows which step is active/complete/pending; explains in copy why approval is needed.
+- [x] **3.5 Gas Fee Estimator** — Estimated fee in native token + USD, speed selector (slow/standard/fast) if relevant, loading/skeleton state while "estimating."
+- [x] **3.6 Notification/Activity Feed** — List of recent account events (deposit, withdraw, compound, approve) using `transactions.ts` mock data; empty state; relative timestamps.
 
 ---
 
@@ -142,7 +142,7 @@ Keep a running count at the top of `docs/PROGRESS.md`, e.g.:
 Phase 0: 11/11
 Phase 1: 14/14
 Phase 2: 16/16
-Phase 3: 0/6
+Phase 3: 6/6
 Phase 4: 0/6
 Phase 5: 0/4
 Phase 6: 0/4

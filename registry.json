@@ -774,6 +774,165 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "wallet-connect-modal",
+      "title": "WalletConnectModal",
+      "description": "Eque WalletConnectModal organism: dialog listing wallet providers as plain labeled rows (no brand icons); per-row connecting spinner and error banner (TASKS.md 3.1).",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/alert-banner",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/ui/dialog.tsx",
+          "target": "components/ui/dialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/organisms/WalletConnectModal/WalletConnectModal.tsx",
+          "target": "components/organisms/WalletConnectModal/WalletConnectModal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "account-dropdown",
+      "title": "AccountDropdown",
+      "description": "Eque AccountDropdown organism: dropdown menu triggered from a wallet-address chip — address + copy, mock balance, network switcher entry, disconnect (TASKS.md 3.2).",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/wallet-address-chip"
+      ],
+      "files": [
+        {
+          "path": "components/ui/dropdown-menu.tsx",
+          "target": "components/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/organisms/AccountDropdown/AccountDropdown.tsx",
+          "target": "components/organisms/AccountDropdown/AccountDropdown.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "transaction-status-modal",
+      "title": "TransactionStatusModal",
+      "description": "Eque TransactionStatusModal organism: Pending → Confirmed/Failed progression with status glyph + label, tx-hash chip, and block-explorer link (TASKS.md 3.3).",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/ui/dialog.tsx",
+          "target": "components/ui/dialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/organisms/TransactionStatusModal/TransactionStatusModal.tsx",
+          "target": "components/organisms/TransactionStatusModal/TransactionStatusModal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "approve-token-flow",
+      "title": "ApproveTokenFlow",
+      "description": "Eque ApproveTokenFlow organism: two-step Approve → Deposit composite with step markers, explainer copy, and per-step actions (TASKS.md 3.4).",
+      "type": "registry:ui",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/ApproveTokenFlow/ApproveTokenFlow.tsx",
+          "target": "components/organisms/ApproveTokenFlow/ApproveTokenFlow.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "gas-fee-estimator",
+      "title": "GasFeeEstimator",
+      "description": "Eque GasFeeEstimator organism: fee in native token + USD with Slow/Standard/Fast selector and skeleton loading state (TASKS.md 3.5).",
+      "type": "registry:ui",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils"
+      ],
+      "files": [
+        {
+          "path": "components/ui/radio-group.tsx",
+          "target": "components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/skeleton.tsx",
+          "target": "components/ui/skeleton.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/organisms/GasFeeEstimator/GasFeeEstimator.tsx",
+          "target": "components/organisms/GasFeeEstimator/GasFeeEstimator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "activity-feed",
+      "title": "ActivityFeed",
+      "description": "Eque ActivityFeed organism: recent account events from transactions mock data — type glyph + label, status, amount, token badge, relative timestamps; empty state via EmptyState (TASKS.md 3.6).",
+      "type": "registry:ui",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/empty-state"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/ActivityFeed/ActivityFeed.tsx",
+          "target": "components/organisms/ActivityFeed/ActivityFeed.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ],
   "name": "@eque"

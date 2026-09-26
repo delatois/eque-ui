@@ -4,7 +4,7 @@
 Phase 0: 11/11
 Phase 1: 14/14
 Phase 2: 16/16
-Phase 3: 0/6
+Phase 3: 6/6
 Phase 4: 0/6
 Phase 5: 0/4
 Phase 6: 0/4
@@ -1341,6 +1341,199 @@ all pass with zero errors.
 - Registry: 33 items, namespaced `@eque/*` internal deps, `@eque/utils`
   everywhere; binary assets never imported by shipped files (optional URL
   prop pattern from TokenAmountInput).
+
+**Known gaps / follow-ups:**
+- Browser story play-tests still unverifiable in this sandbox
+  (Playwright/Chromium proxy incompatibility) — static builds + tooling
+  checks only.
+
+## [Phase 3.1] Wallet Connect Modal — 2026-09-27
+
+**Files added/changed:**
+- `lib/mock-data/wallets.ts` (new — mock wallet providers)
+- `components/organisms/WalletConnectModal/WalletConnectModal.tsx` (new)
+- `components/organisms/WalletConnectModal/WalletConnectModal.stories.tsx` (new)
+- `components/organisms/WalletConnectModal/index.ts` (new)
+- `components/organisms/index.ts` (barrel export)
+- `registry.json` (`wallet-connect-modal` item — 39 items total)
+
+**Implemented:**
+- Dialog listing MetaMask / WalletConnect / Coinbase Wallet as plain labeled rows (generic wallet glyph; no provider brand icons per exclusion rule).
+- Per-row loading spinner via `connectingId`; other rows disabled while one connects.
+- Failed connection rendered as an `AlertBanner` (status="error") with the failure message.
+- Presentational: host drives `connectingId` / `error`; optional `trigger` element via Base UI `render` prop.
+- Stories: Default, Connecting, ConnectionError, SimulatedSuccess, SimulatedFailure (modal stays open for retry).
+
+**Design system references:** DESIGN.md §2, §3.1, §6.1, §7.7 (dialog), §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** provider rows use a generic lucide `Wallet` glyph — no brand icons.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `wallet-connect-modal` item builds
+
+## [Phase 3.2] Account Dropdown — 2026-09-27
+
+**Files added/changed:**
+- `components/ui/dropdown-menu.tsx` (shadcn `dropdown-menu` primitive, restyled to Eque tokens)
+- `components/organisms/AccountDropdown/AccountDropdown.tsx` (new)
+- `components/organisms/AccountDropdown/AccountDropdown.stories.tsx` (new)
+- `components/organisms/AccountDropdown/index.ts` (new)
+- `components/organisms/index.ts` (barrel export)
+- `registry.json` (`account-dropdown` item — 39 items total)
+
+**Implemented:**
+- Dropdown triggered from a `WalletAddressChip` (Base UI `render` prop); menu shows truncated address + copy button with "Copied" feedback, mock balance line, network switcher entry with text `Badge` (exclusion rule — no chain icon), and destructive Disconnect item.
+- Stories: Default, SwitchNetwork, Disconnect, CopyAddress, NoBalance.
+
+**Design system references:** DESIGN.md §2, §3.1, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** network shown as a text badge.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `account-dropdown` item builds
+
+## [Phase 3.3] Transaction Status Modal — 2026-09-27
+
+**Files added/changed:**
+- `components/organisms/TransactionStatusModal/TransactionStatusModal.tsx` (new)
+- `components/organisms/TransactionStatusModal/TransactionStatusModal.stories.tsx` (new)
+- `components/organisms/TransactionStatusModal/index.ts` (new)
+- `components/organisms/index.ts` (barrel export)
+- `registry.json` (`transaction-status-modal` item — 39 items total)
+
+**Implemented:**
+- Pending (spinner) → Confirmed (check) / Failed (X) progression; status as glyph + `Badge` label (warning/success/error — never color alone).
+- Tx-hash chip (mono, truncated, full hash in `title`), block-explorer link (new tab, `rel="noreferrer"`), optional failure reason copy.
+- Presentational: host drives `status`; `onViewExplorer` callback on the explorer link.
+- Stories: Pending, Success, Failed, SimulatedSuccessFlow, SimulatedFailedFlow, Close.
+
+**Design system references:** DESIGN.md §2, §3.1, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `transaction-status-modal` item builds
+
+## [Phase 3.4] Approve Token Flow — 2026-09-27
+
+**Files added/changed:**
+- `components/organisms/ApproveTokenFlow/ApproveTokenFlow.tsx` (new)
+- `components/organisms/ApproveTokenFlow/ApproveTokenFlow.stories.tsx` (new)
+- `components/organisms/ApproveTokenFlow/index.ts` (new)
+- `components/organisms/index.ts` (barrel export)
+- `registry.json` (`approve-token-flow` item — 39 items total)
+
+**Implemented:**
+- Two-step composite (Approve → Deposit): numbered step markers (check when done, spinner when loading, connector hairline), explainer copy for why approval is needed, per-step action buttons; upcoming step inert until the previous completes; `aria-current="step"` on the active step.
+- Statuses per step: `pending` | `active` | `loading` | `done`; host-driven.
+- Stories: ApproveStep, ApproveLoading, DepositStep, AllDone, SimulatedFullFlow (approve → deposit → done via timeouts).
+
+**Design system references:** DESIGN.md §2, §3.1, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `approve-token-flow` item builds
+
+## [Phase 3.5] Gas Fee Estimator — 2026-09-27
+
+**Files added/changed:**
+- `components/organisms/GasFeeEstimator/GasFeeEstimator.tsx` (new)
+- `components/organisms/GasFeeEstimator/GasFeeEstimator.stories.tsx` (new)
+- `components/organisms/GasFeeEstimator/index.ts` (new)
+- `components/organisms/index.ts` (barrel export)
+- `registry.json` (`gas-fee-estimator` item — 39 items total)
+
+**Implemented:**
+- Estimated fee in native token + USD + ETA per speed; Slow/Standard/Fast selector as labeled radio cards (selected = primary tint + border); `role="radiogroup"` via shadcn radio-group.
+- `loading` renders skeleton cards in a `role="status"` region while "estimating".
+- Controlled `speed` + `onSpeedChange` or uncontrolled `defaultSpeed`.
+- Stories: Default, SelectSpeed, Loading, Controlled.
+
+**Design system references:** DESIGN.md §2, §3.1, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** none.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `gas-fee-estimator` item builds
+
+## [Phase 3.6] Notification/Activity Feed — 2026-09-27
+
+**Files added/changed:**
+- `components/organisms/ActivityFeed/ActivityFeed.tsx` (new)
+- `components/organisms/ActivityFeed/ActivityFeed.stories.tsx` (new)
+- `components/organisms/ActivityFeed/index.ts` (new)
+- `components/organisms/index.ts` (barrel export)
+- `registry.json` (`activity-feed` item — 39 items total)
+
+**Implemented:**
+- Lists `transactions.ts` mock data: type glyph + label (deposit/withdraw/compound/approve), status glyph + text (never color alone), signed amount in tabular Mono, token text badge, relative timestamps (`just now` / `5m ago` / `2h ago` / `3d ago`).
+- Rows become buttons with press-feedback + `aria-label` when `onItemClick` is set.
+- Empty list renders the `EmptyState` molecule with optional action.
+- Stories: Default, ClickableRows, Empty, EmptyWithAction.
+
+**Design system references:** DESIGN.md §2, §3.1, §6.1, §8, §9
+
+**Deviations from DESIGN.md (if any) and why:** none.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):** token shown as text badge.
+
+**Known gaps / follow-ups:** browser story play-tests still unverifiable in this sandbox (documented under 2.4).
+
+**Verification performed:**
+- [x] `lint` passes (exit 0)
+- [x] `build` passes (Next 16.3.6 Turbopack, TypeScript clean)
+- [x] `build-storybook` succeeds
+- [x] `registry:build` succeeds — `activity-feed` item builds
+
+---
+
+## Phase 3 summary — Organisms: Wallet & Transactions — 2026-09-27
+
+**What shipped:** 6/6 — WalletConnectModal, AccountDropdown,
+TransactionStatusModal, ApproveTokenFlow, GasFeeEstimator, ActivityFeed.
+New mock-data module `lib/mock-data/wallets.ts`; new restyled primitive
+`components/ui/dropdown-menu.tsx`. Registry at 39 items.
+
+**Conventions carried over:** every organism presentational (props +
+callbacks, mock async in stories), Base UI `render` prop for triggers
+(never `asChild`), status never color-alone, text-badge substitutions
+for excluded components, per-task recaps.
 
 **Known gaps / follow-ups:**
 - Browser story play-tests still unverifiable in this sandbox

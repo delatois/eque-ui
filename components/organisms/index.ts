@@ -1,2 +1,7 @@
 // Barrel for Eque organisms (Phase 3–5 components re-export here).
-export {};
+export * from "./WalletConnectModal";
+export * from "./AccountDropdown";
+export * from "./TransactionStatusModal";
+export * from "./ApproveTokenFlow";
+export * from "./GasFeeEstimator";
+export * from "./ActivityFeed";
