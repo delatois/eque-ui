@@ -65,7 +65,7 @@ function DialogContent({
             render={
               <Button
                 variant="icon"
-                className="absolute top-2 right-2"
+                className="absolute! top-2 right-2"
                 size="sm"
                 aria-label="Close"
               />

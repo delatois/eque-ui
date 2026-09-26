@@ -1539,3 +1539,27 @@ for excluded components, per-task recaps.
 - Browser story play-tests still unverifiable in this sandbox
   (Playwright/Chromium proxy incompatibility) — static builds + tooling
   checks only.
+
+## [Revisi] Dialog close [x], EmptyState dots, AccountDropdown error #31, TxStatusModal footer — 2026-09-27
+
+**Files changed:**
+- `components/ui/dialog.tsx`
+- `components/molecules/EmptyState/EmptyState.tsx`
+- `components/ui/dropdown-menu.tsx`
+- `components/organisms/AccountDropdown/AccountDropdown.tsx` (revert debug prop)
+- `components/organisms/TransactionStatusModal/TransactionStatusModal.tsx`
+
+**Implemented:**
+- Dialog close [x] sekarang beneran di pojok kanan atas (ConfirmDialog, WalletConnectModal, TransactionStatusModal). Root cause: `.press-feedback` (unlayered plain CSS, `position: relative`) mengalahkan utility `absolute` (layered) di cascade — tombol [x] ke-render in-flow di bawah dialog. Fix: `absolute!` (trailing-bang important, Tailwind v4) di `DialogContent`, terverifikasi ke-generate sebagai `position:absolute!important` di built CSS. Berlaku untuk semua dialog yang pakai `DialogContent`.
+- EmptyState: dot-grid pattern `var(--color-border-default)` → `var(--color-primary)` (persiapan background dark aplikasi).
+- AccountDropdown Base UI error #31 ("MenuGroupContext is missing"): `DropdownMenuLabel` sebelumnya di-map ke `MenuPrimitive.GroupLabel` yang wajib di dalam `Menu.Group`. Fix: render plain `div` (semantik label section ala Radix, bukan group label).
+- TransactionStatusModal footer: tambah `flex-col` (override `flex-col-reverse` bawaan `DialogFooter`) supaya di mobile tombol "Close" tampil di bawah "View on explorer".
+
+**Design system references:** DESIGN.md §7 (Modal: close button top-right, 32px square — sekarang sesuai).
+
+**Verification performed:**
+- `npm run lint` — pass
+- `npm run build` — pass (tsc clean)
+- `npm run registry:build` — pass
+- `npm run build-storybook` — pass; `.absolute\!` terkonfirmasi di built CSS
+- Screenshot Storybook tidak bisa dijalankan di sandbox ini (chromium headless gagal render; browser task tidak bisa reach localhost) — verifikasi visual oleh Mil di Storybook lokal

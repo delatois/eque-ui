@@ -121,7 +121,7 @@ function TransactionStatusModal({
           </div>
         ) : null}
 
-        <DialogFooter className="sm:justify-center">
+        <DialogFooter className="flex-col sm:justify-center">
           {explorerUrl ? (
             <Button
               variant="secondary"

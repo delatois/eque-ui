@@ -34,7 +34,7 @@ function EmptyState({ title, description, action, className }: EmptyStateProps) 
         className="relative size-24"
         style={{
           backgroundImage:
-            "radial-gradient(circle, var(--color-border-default) 1px, transparent 1px)",
+            "radial-gradient(circle, var(--color-primary) 1px, transparent 1px)",
           backgroundSize: "10px 10px",
           backgroundPosition: "center",
           maskImage:
