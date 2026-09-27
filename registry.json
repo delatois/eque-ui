@@ -1015,6 +1015,31 @@
           "target": "components/organisms/VaultListGrid/index.ts"
         }
       ]
+    },
+    {
+      "name": "deposit-withdraw-panel",
+      "type": "registry:component",
+      "title": "Deposit/Withdraw Panel",
+      "description": "Eque DepositWithdrawPanel organism: Deposit/Withdraw tabs, Token Amount Input with balance validation (insufficient balance, below-minimum), fee/slippage info rows with estimated-receive line, and the ApproveTokenFlow as the inline entry point when approval is needed (TASKS.md 4.4).",
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button",
+        "@eque/tabs",
+        "@eque/token-amount-input",
+        "@eque/approve-token-flow"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/DepositWithdrawPanel/DepositWithdrawPanel.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/DepositWithdrawPanel/DepositWithdrawPanel.tsx"
+        },
+        {
+          "path": "components/organisms/DepositWithdrawPanel/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/DepositWithdrawPanel/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"

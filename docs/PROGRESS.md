@@ -1756,3 +1756,22 @@ EmptyResults (clear-filters play).
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (42 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 4.4] Deposit/Withdraw Panel — 2026-09-28
+
+`DepositWithdrawPanel` organism: Deposit/Withdraw Tabs, Token Amount
+Input (controlled amount string) with validation — insufficient
+balance, below-minimum (`minAmount`, default 10), non-positive —
+fee/slippage info rows plus a "You receive" estimate (net of fee, in
+shares for deposit / token for withdraw), and a full-width primary
+CTA with loading state. When `needsApproval` is set, the deposit CTA
+becomes "Approve {symbol}" and opens the ApproveTokenFlow inline as
+the entry point (with a Back affordance); the flow's deposit step
+submits the entered amount. Stories: Default (submit play),
+WithdrawTab, InsufficientBalance, BelowMinimum, NeedsApproval
+(flow open/back play), Submitting. Token icon uses the shared mock
+artwork; icon borders removed per the 4.1/4.2 revision.
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (43 items),
+`build-storybook` pass. Visual check on Mil's side.
