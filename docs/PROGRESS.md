@@ -1697,3 +1697,30 @@ chain name text, and the merged pair (two "C" tiles for CRV/CVX).
 - [x] `npm run build-storybook` passes
 - [ ] Storybook renders with no console errors (not run — env limitation)
 - [ ] a11y addon: no critical/serious violations (not run — env limitation)
+
+## [Phase 4.1 revision] VaultCard iconSrc + chain icon left — 2026-09-28
+
+Mil's three revisions, applied to VaultCard only (not pushed yet):
+
+1. **`iconSrc` props for all icons.** `chainIcon?: ReactNode` →
+   `chainIconSrc?: string`; `strategyIcon?: ReactNode` →
+   `strategyIconSrc?: string`; new `iconSrc?: string` (asset) and
+   `pairIconSrc?: string` (LP pair). All render plain `<img>` (same as
+   TokenAmountInput/NetworkSwitcher — registry components cannot depend
+   on `next/image`; the 4 `@next/next/no-img-element` lint warnings match
+   existing kit precedent).
+2. **Shared mock icon.** Stories use `@/assets/example-mockup.png`
+   (normalized to URL, same pattern as TokenAmountInput/NetworkSwitcher
+   stories) for every `*IconSrc`. Going-forward rule: any component that
+   takes icons uses this same mock in stories for a consistent visual
+   reference. New `NoIcons` story covers the fallback: letter tile when
+   `iconSrc` omitted, no chain/strategy artwork.
+3. **Chain icon moved left.** Overlay is now `-bottom-1.5 -left-1.5`
+   (was `-right-1.5 -bottom-1.5`).
+
+**Files changed:** `components/organisms/VaultCard/VaultCard.tsx`,
+`VaultCard.stories.tsx`, `registry.json` (description only).
+
+**Verification:** `tsc`, `lint` (0 errors; 4 no-img-element warnings =
+accepted precedent), `build`, `registry:build`, `build-storybook` pass.
+Visual check on Mil's side.

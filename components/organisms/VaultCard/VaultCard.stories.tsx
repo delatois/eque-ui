@@ -1,22 +1,38 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect, fn, userEvent, within } from "storybook/test"
-import { Layers } from "lucide-react"
 import { VaultCard, type VaultCardData } from "./VaultCard"
 import { mockVaults, type Vault } from "@/lib/mock-data/vaults"
+import mockupIcon from "@/assets/example-mockup.png"
+import type { StaticImageData } from "next/image"
 
 /**
- * Vault Card (4.1) — the product's core surface. Asset icon tile
- * (merged pair for LP vaults, chain dot overlaid on its corner),
- * vault name, strategy line with ecosystem glyph, custom tags
- * stacked top-right, APY pill, TVL, risk indicator, audit chip,
- * and a full-width CTA. Hover treatment per DESIGN.md §7.3;
+ * Mock artwork for stories (same pattern as TokenAmountInput /
+ * NetworkSwitcher stories): Next image imports resolve to `{ src, … }`
+ * while Vite resolves to a URL string; normalize to a plain URL and
+ * pass via the `*IconSrc` props. Placeholder art, not an icon system
+ * (AGENTS.md §1) — going forward every component that takes icons uses
+ * this same mock so Storybook gives a consistent visual reference.
+ */
+const mockupIconSrc: string =
+  typeof (mockupIcon as unknown) === "string"
+    ? (mockupIcon as unknown as string)
+    : (mockupIcon as StaticImageData).src
+
+/**
+ * Vault Card (4.1) — the product's core surface. Asset icon
+ * (`iconSrc`; merged pair for LP vaults, chain icon overlaid on its
+ * bottom-left corner), vault name, strategy line with ecosystem icon,
+ * custom tags stacked top-right, APY pill, TVL, risk indicator, audit
+ * chip, and a full-width CTA. Hover treatment per DESIGN.md §7.3;
  * `featured` adds corner brackets + the pixel shadow.
  */
 const toCardData = (v: Vault, tags: string[] = []): VaultCardData => ({
   id: v.id,
   name: v.name,
   depositToken: v.depositToken.symbol,
+  iconSrc: mockupIconSrc,
   pairToken: v.pairToken?.symbol,
+  pairIconSrc: v.pairToken ? mockupIconSrc : undefined,
   apyBase: v.apyBase,
   apyReward: v.apyReward,
   apyBoost: v.apyBoost,
@@ -24,9 +40,9 @@ const toCardData = (v: Vault, tags: string[] = []): VaultCardData => ({
   risk: v.risk,
   status: v.status,
   chain: v.chain.name,
-  chainIcon: v.chain.name.charAt(0),
+  chainIconSrc: mockupIconSrc,
   strategy: v.strategy,
-  strategyIcon: <Layers />,
+  strategyIconSrc: mockupIconSrc,
   tags,
   audited: v.audited,
 })
@@ -73,9 +89,13 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await expect(canvas.getByText("USDC Lending Prime")).toBeVisible()
-    // Asset icon tile + chain dot overlay (chain name is not rendered).
-    await expect(canvas.getByText("U")).toBeVisible()
-    await expect(canvas.getByText("A")).toBeVisible()
+    // Asset icon image + chain icon overlay (chain name is not rendered).
+    await expect(
+      canvas.getByRole("img", { name: "USDC on Arbitrum" })
+    ).toBeVisible()
+    const imgs = canvasElement.querySelectorAll("img")
+    // asset + chain overlay + strategy icon
+    await expect(imgs.length).toBeGreaterThanOrEqual(3)
     await expect(canvas.queryByText("Arbitrum")).not.toBeInTheDocument()
     // Custom tag replaces the old status badge.
     await expect(canvas.getByText("Single Asset")).toBeVisible()
@@ -125,16 +145,20 @@ export const LiquidityPair: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    // Merged pair icons: CRV and CVX both render a "C" tile.
-    await expect(canvas.getAllByText("C")).toHaveLength(2)
+    // Merged pair icons: two asset images inside the icon wrapper.
+    await expect(
+      canvas.getByRole("img", { name: /CRV \/ CVX/ })
+    ).toBeVisible()
+    const imgs = canvasElement.querySelectorAll("img")
+    // pair (2) + chain overlay + strategy icon
+    await expect(imgs.length).toBeGreaterThanOrEqual(4)
     // Two custom tags stacked.
     await expect(canvas.getByText("Stocks")).toBeVisible()
     await expect(canvas.getByText("LP Token")).toBeVisible()
   },
 }
 
-export const Deprecated: Story = {
-  args: {
+export const Deprecated: Story = {  args: {
     vault: deprecatedVault,
   },
   play: async ({ canvasElement }) => {
@@ -142,5 +166,25 @@ export const Deprecated: Story = {
     // No stretched title link and a disabled CTA on deprecated vaults.
     await expect(canvas.queryByRole("button", { name: /View / })).not.toBeInTheDocument()
     await expect(canvas.getByRole("button", { name: "Deprecated" })).toBeDisabled()
+  },
+}
+
+export const NoIcons: Story = {
+  args: {
+    vault: {
+      ...defaultVault,
+      iconSrc: undefined,
+      chainIconSrc: undefined,
+      strategyIconSrc: undefined,
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // Fallback: generic letter tile, no chain overlay, no strategy icon.
+    await expect(canvas.getByText("U")).toBeVisible()
+    await expect(
+      canvas.getByRole("img", { name: "USDC on Arbitrum" })
+    ).toBeVisible()
+    await expect(canvasElement.querySelectorAll("img")).toHaveLength(0)
   },
 }

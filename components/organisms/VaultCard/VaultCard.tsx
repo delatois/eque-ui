@@ -23,8 +23,15 @@ export interface VaultCardData {
   name: string;
   /** Primary deposit token symbol, e.g. "USDC". */
   depositToken: string;
+  /**
+   * Asset icon image URL. Omitted → generic letter tile (token artwork
+   * is out of scope for the kit — generic glyphs only).
+   */
+  iconSrc?: string;
   /** Set for LP vaults — renders as merged pair icons. */
   pairToken?: string;
+  /** LP pair icon image URL. Omitted → generic letter tile. */
+  pairIconSrc?: string;
   /** APY components in percent units (base + reward + boost = total). */
   apyBase: number;
   apyReward: number;
@@ -37,14 +44,14 @@ export interface VaultCardData {
   /** Chain display name, e.g. "Arbitrum" (aria-labels; not rendered). */
   chain: string;
   /**
-   * Chain glyph rendered as a small dot overlaid on the asset icon's
-   * corner — e.g. the letter "A" or a lucide icon.
+   * Chain icon image URL, overlaid on the asset icon's bottom-left
+   * corner. Omitted → no overlay.
    */
-  chainIcon?: React.ReactNode;
+  chainIconSrc?: string;
   /** One-line strategy description. */
   strategy: string;
-  /** Small glyph rendered next to the strategy line. */
-  strategyIcon?: React.ReactNode;
+  /** Strategy/ecosystem icon image URL. Omitted → no icon. */
+  strategyIconSrc?: string;
   /** Custom tags, e.g. ["Stocks", "LP Token"] — stacked top-right. */
   tags?: string[];
   audited: boolean;
@@ -90,9 +97,11 @@ function AssetTile({ symbol }: { symbol: string }) {
 
 /**
  * Eque vault card organism (TASKS.md 4.1, DESIGN.md §7.3) — asset
- * icon (merged pair for LP vaults, chain dot overlaid), vault name,
- * strategy line with ecosystem glyph, custom tags, APY pill, TVL,
- * risk indicator, audit chip, and a full-width CTA.
+ * icon (merged pair for LP vaults, chain icon overlaid bottom-left),
+ * vault name, strategy line with ecosystem icon, custom tags, APY pill,
+ * TVL, risk indicator, audit chip, and a full-width CTA. All artwork
+ * arrives via `*IconSrc` URL props; omitted icons fall back to generic
+ * letter tiles (or nothing, for the chain/strategy icons).
  */
 function VaultCard({
   vault,
@@ -142,7 +151,7 @@ function VaultCard({
         </div>
       ) : null}
 
-      {/* Asset icon + name; chain dot layered on the icon */}
+      {/* Asset icon + name; chain icon layered on the icon's bottom-left */}
       <div className="flex items-center gap-3">
         <span
           role="img"
@@ -153,19 +162,34 @@ function VaultCard({
           }
           className="relative flex shrink-0"
         >
-          <AssetTile symbol={vault.depositToken} />
+          {vault.iconSrc ? (
+            <img
+              src={vault.iconSrc}
+              alt=""
+              className="size-10 shrink-0 border border-border-subtle object-cover"
+            />
+          ) : (
+            <AssetTile symbol={vault.depositToken} />
+          )}
           {vault.pairToken ? (
             <span className="-ml-3">
-              <AssetTile symbol={vault.pairToken} />
+              {vault.pairIconSrc ? (
+                <img
+                  src={vault.pairIconSrc}
+                  alt=""
+                  className="size-10 shrink-0 border border-border-subtle object-cover"
+                />
+              ) : (
+                <AssetTile symbol={vault.pairToken} />
+              )}
             </span>
           ) : null}
-          {vault.chainIcon ? (
-            <span
-              aria-hidden="true"
-              className="absolute -right-1.5 -bottom-1.5 flex size-4 items-center justify-center border border-surface bg-primary font-mono text-[9px] font-bold text-black"
-            >
-              {vault.chainIcon}
-            </span>
+          {vault.chainIconSrc ? (
+            <img
+              src={vault.chainIconSrc}
+              alt=""
+              className="absolute -bottom-1.5 -left-1.5 size-4 border border-surface object-cover"
+            />
           ) : null}
         </span>
         <Heading as="h4" className="text-xl">
@@ -184,15 +208,14 @@ function VaultCard({
         </Heading>
       </div>
 
-      {/* Strategy line with ecosystem glyph */}
+      {/* Strategy line with ecosystem icon */}
       <div className="mt-2.5 flex items-center gap-2">
-        {vault.strategyIcon ? (
-          <span
-            aria-hidden="true"
-            className="inline-flex shrink-0 text-text-tertiary [&_svg]:size-3.5"
-          >
-            {vault.strategyIcon}
-          </span>
+        {vault.strategyIconSrc ? (
+          <img
+            src={vault.strategyIconSrc}
+            alt=""
+            className="size-3.5 shrink-0 object-cover"
+          />
         ) : null}
         <Text variant="body-s" className="text-text-secondary">
           {vault.strategy}
