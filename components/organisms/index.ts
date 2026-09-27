@@ -6,3 +6,4 @@ export * from "./ApproveTokenFlow";
 export * from "./GasFeeEstimator";
 export * from "./ActivityFeed";
 export * from "./VaultCard";
+export * from "./VaultTableRow";

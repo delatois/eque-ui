@@ -1634,3 +1634,66 @@ chain name text, and the merged pair (two "C" tiles for CRV/CVX).
 
 **Verification:** `lint`, `tsc --noEmit`, `build`, `registry:build`,
 `build-storybook` all pass. Visual check still on Mil's side.
+
+## [Phase 4.2] VaultTableRow — 2026-09-28
+
+**Files added/changed:**
+- `components/organisms/VaultTableRow/VaultTableRow.tsx` (new)
+- `components/organisms/VaultTableRow/VaultTableRow.stories.tsx` (new)
+- `components/organisms/VaultTableRow/index.ts` (new)
+- `components/organisms/index.ts` (barrel re-export)
+- `components/ui/table.tsx` (new via shadcn CLI, restyled to DESIGN.md §7.7)
+- `lib/utils.ts` (`formatTvl` moved here from VaultCard, shared)
+- `components/organisms/VaultCard/VaultCard.tsx` (uses `formatTvl` from `@/lib/utils`)
+- `registry.json` (`vault-table-row` item; 41 items total)
+
+**Implemented:**
+- Props: `vault: VaultTableRowData` (typed exported interface — id, name,
+  depositToken, pairToken?, apyBase/Reward/Boost, tvl, risk, status, chain),
+  `selected?`, `onSelect?`, `className?`.
+- Columns: asset tile + name | APY pill | TVL | risk indicator | chevron.
+  Numbers right-aligned, Spline Sans Mono, `tabular-nums`.
+- Row height 48px, hairline `border-subtle` separators, hover
+  `bg-hover-overlay`, selected `bg-primary-a08`, deprecated `opacity-60`
+  and non-interactive.
+- Click-through: whole row mouse-clickable + vault name renders as a real
+  `<button>` (keyboard path; `stopPropagation` avoids double-fire),
+  `cursor-pointer`, `active:bg-primary-a08` press tint.
+- LP vaults render merged pair tiles (`-ml-2` overlap).
+- table primitive restyled per §7.7: `border-subtle` frame, `bg-surface`
+  header, Mono-11px uppercase tertiary `TableHead`, `px-4 py-2` cells,
+  `duration-micro ease-eque` row transitions.
+- Stories: Default, KeyboardSelect, Selected, LiquidityPair, Deprecated,
+  VaultTable (4-row composite with header: default + selected + LP +
+  deprecated, incl. the very-long-name mock vault).
+
+**Design system references:** DESIGN.md §7.7 (Tables), §2 (tokens), §8
+(motion), §9 (focus).
+
+**Deviations from DESIGN.md (if any) and why:**
+- None. `active:bg-primary-a08` tint used as the press state instead of the
+  `.press-feedback` sweep — `position:relative` on `<tr>` is unreliable for
+  the abspos sweep overlay across engines; the tint is a distinct press
+  state per §7 interactivity rules.
+
+**Excluded-component substitutions used (Token Icon / Network Icon / Avatar):**
+- Asset representation is the generic square letter tile (size-8,
+  primary-tinted border/text, first character of symbol) — same
+  substitution as VaultCard 4.1. Chain icon stays out; chain name only in
+  aria-labels.
+
+**Known gaps / follow-ups:**
+- Runtime Storybook play tests and visual screenshot verification were not
+  executed (browser env cannot reliably reach local Storybook); Mil to
+  inspect spacing/hover/selected in the deployed Storybook.
+- Registry self-containment follow-ups from Phase 3 still open
+  (WalletConnectModal / ActivityFeed mock-data imports).
+
+**Verification performed:**
+- [x] `lint` passes (0 errors, 0 warnings)
+- [x] `tsc --noEmit` passes
+- [x] `npm run build` passes
+- [x] `npm run registry:build` passes (41 items)
+- [x] `npm run build-storybook` passes
+- [ ] Storybook renders with no console errors (not run — env limitation)
+- [ ] a11y addon: no critical/serious violations (not run — env limitation)

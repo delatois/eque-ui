@@ -38,3 +38,11 @@ export function truncateAddress(
   if (address.length <= leading + trailing) return address;
   return `${address.slice(0, leading)}...${address.slice(-trailing)}`;
 }
+
+/** Compact TVL: 48_250_000 → "$48.25M". */
+export function formatTvl(tvl: number): string {
+  if (tvl >= 1_000_000_000) return `$${(tvl / 1_000_000_000).toFixed(2)}B`;
+  if (tvl >= 1_000_000) return `$${(tvl / 1_000_000).toFixed(2)}M`;
+  if (tvl >= 1_000) return `$${(tvl / 1_000).toFixed(1)}K`;
+  return `$${tvl.toFixed(0)}`;
+}

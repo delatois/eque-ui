@@ -3,6 +3,7 @@
 import * as React from "react";
 import { ShieldCheck } from "lucide-react";
 import { cn } from "cn";
+import { formatTvl } from "@/lib/utils";
 import { Badge } from "@/components/atoms/Badge";
 import { Button } from "@/components/atoms/Button";
 import { Divider } from "@/components/atoms/Divider";
@@ -68,14 +69,6 @@ export interface VaultCardProps {
   depositLabel?: string;
   /** Extra classes merged onto the card (tailwind-merge wins). */
   className?: string;
-}
-
-/** Compact USD formatter: 48_250_000 -> "$48.25M". */
-function formatTvl(tvl: number): string {
-  if (tvl >= 1_000_000_000) return `$${(tvl / 1_000_000_000).toFixed(2)}B`;
-  if (tvl >= 1_000_000) return `$${(tvl / 1_000_000).toFixed(2)}M`;
-  if (tvl >= 1_000) return `$${(tvl / 1_000).toFixed(1)}K`;
-  return `$${tvl.toFixed(0)}`;
 }
 
 const corner = "pointer-events-none absolute h-5 w-5 border-primary" as const;
@@ -257,4 +250,4 @@ function VaultCard({
   );
 }
 
-export { VaultCard, formatTvl };
+export { VaultCard };
