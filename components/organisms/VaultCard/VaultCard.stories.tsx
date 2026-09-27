@@ -1,16 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { expect, fn, userEvent, within } from "storybook/test"
+import { Layers } from "lucide-react"
 import { VaultCard, type VaultCardData } from "./VaultCard"
 import { mockVaults, type Vault } from "@/lib/mock-data/vaults"
 
 /**
- * Vault Card (4.1) — the product's core surface. Token badge(s)
- * (stacked pair for LP vaults), chain label, vault name, strategy
- * line, APY pill, TVL, risk indicator, audit chip, status badge,
+ * Vault Card (4.1) — the product's core surface. Asset icon tile
+ * (merged pair for LP vaults, chain dot overlaid on its corner),
+ * vault name, strategy line with ecosystem glyph, custom tags
+ * stacked top-right, APY pill, TVL, risk indicator, audit chip,
  * and a full-width CTA. Hover treatment per DESIGN.md §7.3;
  * `featured` adds corner brackets + the pixel shadow.
  */
-const toCardData = (v: Vault): VaultCardData => ({
+const toCardData = (v: Vault, tags: string[] = []): VaultCardData => ({
   id: v.id,
   name: v.name,
   depositToken: v.depositToken.symbol,
@@ -22,19 +24,28 @@ const toCardData = (v: Vault): VaultCardData => ({
   risk: v.risk,
   status: v.status,
   chain: v.chain.name,
+  chainIcon: v.chain.name.charAt(0),
   strategy: v.strategy,
+  strategyIcon: <Layers />,
+  tags,
   audited: v.audited,
 })
 
 const defaultVault = toCardData(
-  mockVaults.find((v) => v.id === "vault-usdc-arbitrum")!
+  mockVaults.find((v) => v.id === "vault-usdc-arbitrum")!,
+  ["Single Asset"]
 )
 const featuredVault = toCardData(
-  mockVaults.find((v) => v.id === "vault-weth-mainnet")!
+  mockVaults.find((v) => v.id === "vault-weth-mainnet")!,
+  ["Single Asset"]
 )
-const lpVault = toCardData(mockVaults.find((v) => v.id === "vault-crv-cvx-lp")!)
+const lpVault = toCardData(mockVaults.find((v) => v.id === "vault-crv-cvx-lp")!, [
+  "Stocks",
+  "LP Token",
+])
 const deprecatedVault = toCardData(
-  mockVaults.find((v) => v.id === "vault-usdt-optimism")!
+  mockVaults.find((v) => v.id === "vault-usdt-optimism")!,
+  ["Single Asset"]
 )
 
 const meta = {
@@ -61,17 +72,19 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    // §7.3 structure: label → H4 → body → action.
     await expect(canvas.getByText("USDC Lending Prime")).toBeVisible()
-    await expect(canvas.getByText("Arbitrum")).toBeVisible()
+    // Asset icon tile + chain dot overlay (chain name is not rendered).
+    await expect(canvas.getByText("U")).toBeVisible()
+    await expect(canvas.getByText("A")).toBeVisible()
+    await expect(canvas.queryByText("Arbitrum")).not.toBeInTheDocument()
+    // Custom tag replaces the old status badge.
+    await expect(canvas.getByText("Single Asset")).toBeVisible()
+    await expect(canvas.queryByText("Active")).not.toBeInTheDocument()
     // APY pill shows the summed total.
     await expect(canvas.getByText("12.77% APY")).toBeVisible()
     await expect(canvas.getByText("$48.25M")).toBeVisible()
-    // Status is text + tint, never color alone.
-    await expect(canvas.getByText("Active")).toBeVisible()
-    await expect(
-      canvas.getByRole("button", { name: "Deposit" })
-    ).toBeVisible()
+    await expect(canvas.getByText("Aave V3 supply looping")).toBeVisible()
+    await expect(canvas.getByRole("button", { name: "Deposit" })).toBeVisible()
   },
 }
 
@@ -112,9 +125,11 @@ export const LiquidityPair: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    // Stacked badge pair for the LP tokens.
-    await expect(canvas.getByText("CRV")).toBeVisible()
-    await expect(canvas.getByText("CVX")).toBeVisible()
+    // Merged pair icons: CRV and CVX both render a "C" tile.
+    await expect(canvas.getAllByText("C")).toHaveLength(2)
+    // Two custom tags stacked.
+    await expect(canvas.getByText("Stocks")).toBeVisible()
+    await expect(canvas.getByText("LP Token")).toBeVisible()
   },
 }
 
@@ -124,13 +139,8 @@ export const Deprecated: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    await expect(canvas.getByText("Deprecated")).toBeVisible()
     // No stretched title link and a disabled CTA on deprecated vaults.
-    await expect(
-      canvas.queryByRole("button", { name: /View / })
-    ).not.toBeInTheDocument()
-    await expect(
-      canvas.getByRole("button", { name: "Deprecated" })
-    ).toBeDisabled()
+    await expect(canvas.queryByRole("button", { name: /View / })).not.toBeInTheDocument()
+    await expect(canvas.getByRole("button", { name: "Deprecated" })).toBeDisabled()
   },
 }

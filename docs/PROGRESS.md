@@ -1601,3 +1601,36 @@ disabled deprecated CTA, stacked LP badges).
 (40 items), `build-storybook` all pass. Runtime play tests / visual
 screenshot verification not executed locally (browser isolation) — must
 be confirmed in Mil's Storybook.
+
+---
+
+## 2026-09-27 — Task 4.1 revision (Mil's 5-point redesign)
+
+**What changed** in `components/organisms/VaultCard/`:
+
+1. **Asset badges -> icon tiles.** Text badges replaced by a square
+   letter tile (`size-10`, `border-primary-a32`, `bg-surface-raised`,
+   Mono bold primary letter) next to the vault name — generic glyph
+   only, no token artwork (kit exclusion stands).
+2. **[Active] badge removed -> custom `tags`.** New `tags?: string[]`
+   prop renders neutral badges stacked top-right (`flex-col items-end`),
+   e.g. `["Stocks", "LP Token"]`. Status is no longer shown visually;
+   `status` now only drives deprecated behavior.
+3. **Chain name removed -> `chainIcon` overlay.** New
+   `chainIcon?: ReactNode` prop renders as a small solid-primary dot
+   (`size-4`, dark glyph) absolutely positioned at the asset icon's
+   bottom-right corner. Chain name stays in `VaultCardData` for
+   aria-labels only.
+4. **Strategy line gets `strategyIcon`.** New
+   `strategyIcon?: ReactNode` prop rendered before the strategy text
+   (stories pass a `Layers` lucide glyph, `size-3.5`, tertiary).
+5. **LP pair icons merged.** `pairToken` renders a second tile with
+   `-ml-3` overlap so the two tiles read as one joined pair icon.
+
+**Stories updated:** adapter maps `chainIcon` (chain initial),
+`strategyIcon` (`<Layers />`), and per-vault `tags`; play tests assert
+tiles/chain dot, tag presence, absence of the old "Active" badge and
+chain name text, and the merged pair (two "C" tiles for CRV/CVX).
+
+**Verification:** `lint`, `tsc --noEmit`, `build`, `registry:build`,
+`build-storybook` all pass. Visual check still on Mil's side.

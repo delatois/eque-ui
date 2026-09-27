@@ -22,7 +22,7 @@ export interface VaultCardData {
   name: string;
   /** Primary deposit token symbol, e.g. "USDC". */
   depositToken: string;
-  /** Set for LP vaults — renders as a stacked badge pair. */
+  /** Set for LP vaults — renders as merged pair icons. */
   pairToken?: string;
   /** APY components in percent units (base + reward + boost = total). */
   apyBase: number;
@@ -31,11 +31,21 @@ export interface VaultCardData {
   /** Total value locked, USD. */
   tvl: number;
   risk: "low" | "medium" | "high";
+  /** Drives interactivity only — no status badge is rendered. */
   status: "active" | "deprecated";
-  /** Chain display name, e.g. "Arbitrum". */
+  /** Chain display name, e.g. "Arbitrum" (aria-labels; not rendered). */
   chain: string;
+  /**
+   * Chain glyph rendered as a small dot overlaid on the asset icon's
+   * corner — e.g. the letter "A" or a lucide icon.
+   */
+  chainIcon?: React.ReactNode;
   /** One-line strategy description. */
   strategy: string;
+  /** Small glyph rendered next to the strategy line. */
+  strategyIcon?: React.ReactNode;
+  /** Custom tags, e.g. ["Stocks", "LP Token"] — stacked top-right. */
+  tags?: string[];
   audited: boolean;
 }
 
@@ -68,13 +78,28 @@ function formatTvl(tvl: number): string {
   return `$${tvl.toFixed(0)}`;
 }
 
-const corner =
-  "pointer-events-none absolute h-5 w-5 border-primary" as const;
+const corner = "pointer-events-none absolute h-5 w-5 border-primary" as const;
 
 /**
- * Eque vault card organism (TASKS.md 4.1, DESIGN.md §7.3) — token
- * badge(s), chain label, vault name, strategy line, APY pill, TVL,
- * risk indicator, audit chip, status badge, and a full-width CTA.
+ * Square letter tile standing in for a token glyph (token artwork is
+ * out of scope for the kit — generic glyphs only).
+ */
+function AssetTile({ symbol }: { symbol: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="flex size-10 shrink-0 items-center justify-center border border-primary-a32 bg-surface-raised font-mono text-sm font-bold text-primary"
+    >
+      {symbol.charAt(0).toUpperCase()}
+    </span>
+  );
+}
+
+/**
+ * Eque vault card organism (TASKS.md 4.1, DESIGN.md §7.3) — asset
+ * icon (merged pair for LP vaults, chain dot overlaid), vault name,
+ * strategy line with ecosystem glyph, custom tags, APY pill, TVL,
+ * risk indicator, audit chip, and a full-width CTA.
  */
 function VaultCard({
   vault,
@@ -113,34 +138,44 @@ function VaultCard({
         </span>
       ) : null}
 
-      {/* Token badges + status */}
-      <div className="flex items-start justify-between gap-3">
-        <div
-          className="flex items-center"
+      {/* Custom tags, stacked top-right */}
+      {vault.tags && vault.tags.length > 0 ? (
+        <div className="mb-4 flex flex-col items-end gap-1.5">
+          {vault.tags.map((tag) => (
+            <Badge key={tag} variant="neutral">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+      ) : null}
+
+      {/* Asset icon + name; chain dot layered on the icon */}
+      <div className="flex items-center gap-3">
+        <span
+          role="img"
           aria-label={
             vault.pairToken
-              ? `Deposit tokens: ${vault.depositToken} and ${vault.pairToken}`
-              : `Deposit token: ${vault.depositToken}`
+              ? `${vault.depositToken} / ${vault.pairToken} on ${vault.chain}`
+              : `${vault.depositToken} on ${vault.chain}`
           }
+          className="relative flex shrink-0"
         >
-          <Badge variant="brand">{vault.depositToken}</Badge>
+          <AssetTile symbol={vault.depositToken} />
           {vault.pairToken ? (
-            <Badge variant="neutral" className="-ml-2 bg-surface">
-              {vault.pairToken}
-            </Badge>
+            <span className="-ml-3">
+              <AssetTile symbol={vault.pairToken} />
+            </span>
           ) : null}
-        </div>
-        <Badge variant={deprecated ? "warning" : "success"}>
-          {deprecated ? "Deprecated" : "Active"}
-        </Badge>
-      </div>
-
-      {/* Label → title → description (§7.3 structure) */}
-      <div className="mt-4">
-        <p className="font-mono text-[11px] font-medium tracking-[0.08em] text-text-tertiary uppercase">
-          {vault.chain}
-        </p>
-        <Heading as="h4" className="mt-1.5 text-xl">
+          {vault.chainIcon ? (
+            <span
+              aria-hidden="true"
+              className="absolute -right-1.5 -bottom-1.5 flex size-4 items-center justify-center border border-surface bg-primary font-mono text-[9px] font-bold text-black"
+            >
+              {vault.chainIcon}
+            </span>
+          ) : null}
+        </span>
+        <Heading as="h4" className="text-xl">
           {interactive && !deprecated ? (
             <button
               type="button"
@@ -154,7 +189,19 @@ function VaultCard({
             vault.name
           )}
         </Heading>
-        <Text variant="body-s" className="mt-1 text-text-secondary">
+      </div>
+
+      {/* Strategy line with ecosystem glyph */}
+      <div className="mt-2.5 flex items-center gap-2">
+        {vault.strategyIcon ? (
+          <span
+            aria-hidden="true"
+            className="inline-flex shrink-0 text-text-tertiary [&_svg]:size-3.5"
+          >
+            {vault.strategyIcon}
+          </span>
+        ) : null}
+        <Text variant="body-s" className="text-text-secondary">
           {vault.strategy}
         </Text>
       </div>

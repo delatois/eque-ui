@@ -937,7 +937,7 @@
   {
    "name": "vault-card",
    "title": "VaultCard",
-   "description": "Eque VaultCard organism: token badge(s) (stacked pair for LP vaults), chain label, vault name, strategy line, APY pill, TVL, risk indicator, audit chip, status badge, full-width CTA; featured variant with corner brackets + pixel shadow (TASKS.md 4.1, DESIGN.md §7.3).",
+   "description": "Eque VaultCard organism: asset icon tile (merged pair for LP vaults, chain dot overlaid), vault name, strategy line with ecosystem glyph, custom tags stacked top-right, APY pill, TVL, risk indicator, audit chip, full-width CTA; featured variant with corner brackets + pixel shadow (TASKS.md 4.1, DESIGN.md §7.3).",
    "type": "registry:ui",
    "dependencies": [
     "cn",
