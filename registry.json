@@ -1014,6 +1014,10 @@
           "type": "registry:component",
           "target": "components/organisms/VaultListGrid/index.ts"
         }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
       ]
     },
     {
@@ -1038,6 +1042,37 @@
           "path": "components/organisms/DepositWithdrawPanel/index.ts",
           "type": "registry:component",
           "target": "components/organisms/DepositWithdrawPanel/index.ts"
+        }
+      ],
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "strategy-info-panel",
+      "type": "registry:component",
+      "title": "Strategy Info Panel",
+      "description": "Eque StrategyInfoPanel organism: strategy description with underlying protocols as text badges, a \"how compounding works\" explainer, risk factors as a bulleted list, and audit/security links; empty sections render nothing (TASKS.md 4.5).",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/divider"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/StrategyInfoPanel/StrategyInfoPanel.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/StrategyInfoPanel/StrategyInfoPanel.tsx"
+        },
+        {
+          "path": "components/organisms/StrategyInfoPanel/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/StrategyInfoPanel/index.ts"
         }
       ]
     }

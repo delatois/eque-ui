@@ -1775,3 +1775,20 @@ artwork; icon borders removed per the 4.1/4.2 revision.
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (43 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 4.5] Strategy Info Panel — 2026-09-28
+
+`StrategyInfoPanel` organism: strategy name + description, underlying
+protocols as text badges (Badge atom), a "How compounding works"
+explainer as numbered (01–04) mono steps, risk factors as a bulleted
+list, and audit/security links as external-link rows with hover tint
+and focus-visible rings. Sections with empty data render nothing.
+Stories: Default (full — options-premium copy, link hrefs asserted),
+Minimal (only description + one badge; empty sections asserted
+absent). Also fixed: added the missing `dependencies: ["cn",
+"lucide-react"]` on the 4.3/4.4 registry items (per AGENTS.md §16 —
+the other 41 items already had it).
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (44 items),
+`build-storybook` pass. Visual check on Mil's side.

@@ -97,7 +97,7 @@ Depends on Phases 1–2. This is the core of the product — give it the most de
 - [x] **4.2 Vault Table Row** — Same data as the Vault Card in dense table form (`table` primitive), right-aligned tabular numbers, hover row highlight, click-through affordance.
 - [x] **4.3 Vault List/Grid + Filters** — Composes Search & Filter Bar (2.8) + a grid/table view toggle + Vault Card/Row + Pagination or infinite-scroll-style loading skeletons; empty-results state.
 - [x] **4.4 Deposit/Withdraw Panel** — Tabs (Deposit/Withdraw) + Token Amount Input + fee/slippage info row + Approve Token Flow entry point + primary action button with loading state; validation error state (insufficient balance, amount below minimum).
-- [ ] **4.5 Strategy Info Panel** — Strategy description, underlying protocol(s) listed as text badges, audit/security links, risk factors as a bulleted list, "how compounding works" explainer copy.
+- [x] **4.5 Strategy Info Panel** — Strategy description, underlying protocol(s) listed as text badges, audit/security links, risk factors as a bulleted list, "how compounding works" explainer copy.
 - [ ] **4.6 Audit/Security Badge Row** — Row of trust badges ("Audited by X", "Insured", "Open source") built from Badge/Tooltip; unaudited-vault warning variant using the warning status color.
 
 ---
@@ -143,7 +143,7 @@ Phase 0: 11/11
 Phase 1: 14/14
 Phase 2: 16/16
 Phase 3: 6/6
-Phase 4: 4/6
+Phase 4: 5/6
 Phase 5: 0/4
 Phase 6: 0/4
 Phase 7: 0/5

@@ -9,3 +9,4 @@ export * from "./VaultCard";
 export * from "./VaultTableRow";
 export * from "./VaultListGrid";
 export * from "./DepositWithdrawPanel";
+export * from "./StrategyInfoPanel";
