@@ -963,7 +963,7 @@
     {
       "name": "vault-table-row",
       "title": "VaultTableRow",
-      "description": "Eque VaultTableRow organism: Vault Card data in dense table form — asset letter tile (merged pair for LP vaults) + name, APY pill, TVL, risk indicator, click-through chevron; right-aligned tabular numbers, selected tint, deprecated dimming; bundles the Eque-customized table primitive (TASKS.md 4.2, DESIGN.md §7.7).",
+      "description": "Eque VaultTableRow organism: Vault Card data in dense table form — asset icon via iconSrc URL prop (merged pair for LP vaults; generic letter tile fallback when omitted) + name, APY pill, TVL, risk indicator, click-through chevron; right-aligned tabular numbers, selected tint, deprecated dimming; bundles the Eque-customized table primitive (TASKS.md 4.2, DESIGN.md §7.7).",
       "type": "registry:ui",
       "dependencies": [
         "cn",

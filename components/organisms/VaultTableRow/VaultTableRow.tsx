@@ -20,8 +20,15 @@ export interface VaultTableRowData {
   name: string;
   /** Primary deposit token symbol, e.g. "USDC". */
   depositToken: string;
+  /**
+   * Asset icon image URL. Omitted → generic letter tile (token artwork
+   * is out of scope for the kit — generic glyphs only).
+   */
+  iconSrc?: string;
   /** Set for LP vaults — renders as merged pair icons. */
   pairToken?: string;
+  /** LP pair icon image URL. Omitted → generic letter tile. */
+  pairIconSrc?: string;
   /** APY components in percent units (base + reward + boost = total). */
   apyBase: number;
   apyReward: number;
@@ -103,10 +110,26 @@ function VaultTableRow({
             }
             className="flex shrink-0"
           >
-            <AssetTile symbol={vault.depositToken} />
+            {vault.iconSrc ? (
+              <img
+                src={vault.iconSrc}
+                alt=""
+                className="size-8 shrink-0 border border-border-subtle object-cover"
+              />
+            ) : (
+              <AssetTile symbol={vault.depositToken} />
+            )}
             {vault.pairToken ? (
               <span className="-ml-2">
-                <AssetTile symbol={vault.pairToken} />
+                {vault.pairIconSrc ? (
+                  <img
+                    src={vault.pairIconSrc}
+                    alt=""
+                    className="size-8 shrink-0 border border-border-subtle object-cover"
+                  />
+                ) : (
+                  <AssetTile symbol={vault.pairToken} />
+                )}
               </span>
             ) : null}
           </span>

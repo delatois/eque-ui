@@ -1724,3 +1724,16 @@ Mil's three revisions, applied to VaultCard only (not pushed yet):
 **Verification:** `tsc`, `lint` (0 errors; 4 no-img-element warnings =
 accepted precedent), `build`, `registry:build`, `build-storybook` pass.
 Visual check on Mil's side.
+
+## [Phase 4.2 revision] VaultTableRow iconSrc — 2026-09-28
+
+Same treatment as the 4.1 revision, per Mil: `iconSrc?: string` and
+`pairIconSrc?: string` added to `VaultTableRowData`; asset icons render
+`<img>` (shared `@/assets/example-mockup.png` mock in stories),
+falling back to the generic letter tile when omitted. Stories updated
+(Default asserts the icon wrapper, LiquidityPair asserts the two merged
+images). Registry description updated.
+
+**Verification:** `tsc`, `lint` (0 errors; no-img-element warnings =
+accepted kit precedent), `build`, `registry:build`, `build-storybook`
+pass. Visual check on Mil's side.

@@ -9,18 +9,34 @@ import {
 } from "@/components/ui/table"
 import { VaultTableRow, type VaultTableRowData } from "./VaultTableRow"
 import { mockVaults, type Vault } from "@/lib/mock-data/vaults"
+import mockupIcon from "@/assets/example-mockup.png"
+import type { StaticImageData } from "next/image"
+
+/**
+ * Mock artwork for stories (same pattern as VaultCard /
+ * TokenAmountInput / NetworkSwitcher stories): Next image imports
+ * resolve to `{ src, … }` while Vite resolves to a URL string;
+ * normalize to a plain URL and pass via the `*IconSrc` props.
+ * Placeholder art, not an icon system (AGENTS.md §1).
+ */
+const mockupIconSrc: string =
+  typeof (mockupIcon as unknown) === "string"
+    ? (mockupIcon as unknown as string)
+    : (mockupIcon as StaticImageData).src
 
 /**
  * Vault Table Row (4.2) — the Vault Card's data in dense table form:
- * asset icon (merged pair for LP vaults) + name, APY pill, TVL,
- * risk indicator, and a click-through chevron. Numbers are
+ * asset icon (`iconSrc`; merged pair for LP vaults) + name, APY pill,
+ * TVL, risk indicator, and a click-through chevron. Numbers are
  * right-aligned in Spline Sans Mono, tabular (DESIGN.md §7.7).
  */
 const toRowData = (v: Vault): VaultTableRowData => ({
   id: v.id,
   name: v.name,
   depositToken: v.depositToken.symbol,
+  iconSrc: mockupIconSrc,
   pairToken: v.pairToken?.symbol,
+  pairIconSrc: v.pairToken ? mockupIconSrc : undefined,
   apyBase: v.apyBase,
   apyReward: v.apyReward,
   apyBoost: v.apyBoost,
@@ -90,6 +106,9 @@ export const Default: Story = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement)
     await expect(canvas.getByText("USDC Lending Prime")).toBeVisible()
+    await expect(
+      canvas.getByRole("img", { name: "USDC on Arbitrum" })
+    ).toBeVisible()
     await expect(canvas.getByText("12.77% APY")).toBeVisible()
     await expect(canvas.getByText("$48.25M")).toBeVisible()
     // Row click-through (mouse path).
@@ -125,8 +144,13 @@ export const LiquidityPair: Story = {
   args: { vault: lpVault },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    // CRV and CVX both render a "C" tile, merged.
-    await expect(canvas.getAllByText("C")).toHaveLength(2)
+    // Merged pair icons: two asset images inside the icon wrapper.
+    await expect(
+      canvas.getByRole("img", { name: /CRV \/ CVX/ })
+    ).toBeVisible()
+    await expect(
+      canvasElement.querySelectorAll('[role="img"] img')
+    ).toHaveLength(2)
     await expect(canvas.getByText("CRV/CVX Concentrated LP")).toBeVisible()
   },
 }
