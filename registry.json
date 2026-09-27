@@ -1075,6 +1075,33 @@
           "target": "components/organisms/StrategyInfoPanel/index.ts"
         }
       ]
+    },
+    {
+      "name": "audit-security-badge-row",
+      "type": "registry:component",
+      "title": "Audit/Security Badge Row",
+      "description": "Eque AuditSecurityBadgeRow molecule: row of trust badges (\"Audited by X\", \"Insured\", \"Open source\") built from Badge + Tooltip with a leading shield glyph and optional detail tooltip; unaudited-vault warning variant uses the warning status color (TASKS.md 4.6).",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/tooltip"
+      ],
+      "files": [
+        {
+          "path": "components/molecules/AuditSecurityBadgeRow/AuditSecurityBadgeRow.tsx",
+          "type": "registry:component",
+          "target": "components/molecules/AuditSecurityBadgeRow/AuditSecurityBadgeRow.tsx"
+        },
+        {
+          "path": "components/molecules/AuditSecurityBadgeRow/index.ts",
+          "type": "registry:component",
+          "target": "components/molecules/AuditSecurityBadgeRow/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"

@@ -1792,3 +1792,18 @@ the other 41 items already had it).
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (44 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 4.6] Audit/Security Badge Row — 2026-09-28
+
+`AuditSecurityBadgeRow` molecule: data-driven row of trust badges
+built from the Badge + Tooltip atoms — each badge has a leading
+shield glyph (ShieldCheck / ShieldAlert / Shield per tone), an
+optional detail tooltip, and tones positive (success) / warning /
+neutral. The unaudited-vault warning variant uses the warning status
+color. Renders nothing when the list is empty. Stories: Default (4
+badges, tooltip-on-hover play) and UnauditedWarning. Phase 4 is now
+6/6 complete.
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (45 items),
+`build-storybook` pass. Visual check on Mil's side.
