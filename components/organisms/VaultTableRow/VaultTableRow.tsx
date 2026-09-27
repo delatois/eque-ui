@@ -64,7 +64,7 @@ function AssetTile({ symbol }: { symbol: string }) {
   return (
     <span
       aria-hidden="true"
-      className="flex size-8 shrink-0 items-center justify-center border border-primary-a32 bg-surface-raised font-mono text-xs font-bold text-primary"
+      className="flex size-8 shrink-0 items-center justify-center bg-surface-raised font-mono text-xs font-bold text-primary"
     >
       {symbol.charAt(0).toUpperCase()}
     </span>
@@ -114,7 +114,7 @@ function VaultTableRow({
               <img
                 src={vault.iconSrc}
                 alt=""
-                className="size-8 shrink-0 border border-border-subtle object-cover"
+                className="size-8 shrink-0 object-cover"
               />
             ) : (
               <AssetTile symbol={vault.depositToken} />
@@ -125,7 +125,7 @@ function VaultTableRow({
                   <img
                     src={vault.pairIconSrc}
                     alt=""
-                    className="size-8 shrink-0 border border-border-subtle object-cover"
+                    className="size-8 shrink-0 object-cover"
                   />
                 ) : (
                   <AssetTile symbol={vault.pairToken} />

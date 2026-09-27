@@ -88,7 +88,7 @@ function AssetTile({ symbol }: { symbol: string }) {
   return (
     <span
       aria-hidden="true"
-      className="flex size-10 shrink-0 items-center justify-center border border-primary-a32 bg-surface-raised font-mono text-sm font-bold text-primary"
+      className="flex size-10 shrink-0 items-center justify-center bg-surface-raised font-mono text-sm font-bold text-primary"
     >
       {symbol.charAt(0).toUpperCase()}
     </span>
@@ -166,7 +166,7 @@ function VaultCard({
             <img
               src={vault.iconSrc}
               alt=""
-              className="size-10 shrink-0 border border-border-subtle object-cover"
+              className="size-10 shrink-0 object-cover"
             />
           ) : (
             <AssetTile symbol={vault.depositToken} />
@@ -177,7 +177,7 @@ function VaultCard({
                 <img
                   src={vault.pairIconSrc}
                   alt=""
-                  className="size-10 shrink-0 border border-border-subtle object-cover"
+                  className="size-10 shrink-0 object-cover"
                 />
               ) : (
                 <AssetTile symbol={vault.pairToken} />
@@ -188,7 +188,7 @@ function VaultCard({
             <img
               src={vault.chainIconSrc}
               alt=""
-              className="absolute -bottom-1.5 -left-1.5 size-4 border border-surface object-cover"
+              className="absolute -bottom-1.5 -left-1.5 size-4 object-cover"
             />
           ) : null}
         </span>
