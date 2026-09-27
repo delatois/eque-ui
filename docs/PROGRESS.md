@@ -5,7 +5,7 @@ Phase 0: 11/11
 Phase 1: 14/14
 Phase 2: 16/16
 Phase 3: 6/6
-Phase 4: 0/6
+Phase 4: 1/6
 Phase 5: 0/4
 Phase 6: 0/4
 Phase 7: 0/5
@@ -1563,3 +1563,41 @@ for excluded components, per-task recaps.
 - `npm run registry:build` — pass
 - `npm run build-storybook` — pass; `.absolute\!` terkonfirmasi di built CSS
 - Screenshot Storybook tidak bisa dijalankan di sandbox ini (chromium headless gagal render; browser task tidak bisa reach localhost) — verifikasi visual oleh Mil di Storybook lokal
+
+---
+
+## 2026-09-27 — Task 4.1 VaultCard (Phase 4: 1/6)
+
+**What shipped:** `components/organisms/VaultCard/` — the product's core
+surface per DESIGN.md §7.3: token badge(s) (brand badge + neutral badge
+stacked with `-ml-2` overlap for LP pairs), chain label (Mono 11px tertiary
+uppercase), H4 vault name, Body S strategy line, APY pill hero + TVL
+(Mono tabular, `$48.25M` formatter) in a split row, RiskLevelIndicator +
+"audited" shield chip, status badge (Active = success / Deprecated =
+warning, text + tint never color alone), Divider, full-width primary CTA.
+
+**Design-care decisions (extra taste pass):**
+- Interactive = `onSelect` provided → vault name becomes a stretched-link
+  button (`after:absolute after:inset-0`) covering the card; hover does the
+  §7.3 border shift (`border-primary-a40`) + `bg-surface-raised`, plus
+  `focus-within` border so keyboard focus is visible on the card. CTA sits
+  in a `relative` wrapper above the stretched link so it stays clickable.
+- Deprecated vaults are never interactive: no stretched link, no hover
+  shift, CTA disabled and relabeled "Deprecated".
+- `featured` variant: 32px padding + 4 primary corner-bracket spans +
+  `shadow-pixel` (the `--shadow-pixel` @theme token). Reserved for one
+  hero vault per list.
+- Registry self-containment: the component takes a structural
+  `VaultCardData` interface and never imports `@/lib/mock-data/*`
+  (the Phase 3 follow-up — ActivityFeed/WalletConnectModal registry items
+  still don't bundle their mock-data files). Stories map `mockVaults`
+  through a `toCardData` adapter.
+
+**Stories:** Default, TitleSelect, DepositAction, Featured, LiquidityPair,
+Deprecated — all with play tests (stretched-link select, CTA action,
+disabled deprecated CTA, stacked LP badges).
+
+**Verification:** `lint`, `tsc --noEmit`, `build`, `registry:build`
+(40 items), `build-storybook` all pass. Runtime play tests / visual
+screenshot verification not executed locally (browser isolation) — must
+be confirmed in Mil's Storybook.

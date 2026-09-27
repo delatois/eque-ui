@@ -5,3 +5,4 @@ export * from "./TransactionStatusModal";
 export * from "./ApproveTokenFlow";
 export * from "./GasFeeEstimator";
 export * from "./ActivityFeed";
+export * from "./VaultCard";
