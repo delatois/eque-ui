@@ -7,3 +7,4 @@ export * from "./GasFeeEstimator";
 export * from "./ActivityFeed";
 export * from "./VaultCard";
 export * from "./VaultTableRow";
+export * from "./VaultListGrid";

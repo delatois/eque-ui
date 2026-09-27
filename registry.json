@@ -986,6 +986,35 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "vault-list-grid",
+      "type": "registry:component",
+      "title": "Vault List/Grid",
+      "description": "Eque VaultListGrid organism: Search & Filter Bar + sort control + grid/table view toggle above a responsive Vault Card grid or dense Vault Table Row table, with Pagination, loading skeletons, and an empty-results state with clear-filters action (TASKS.md 4.3).",
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/button",
+        "@eque/select",
+        "@eque/skeleton",
+        "@eque/empty-state",
+        "@eque/pagination",
+        "@eque/search-filter-bar",
+        "@eque/vault-card",
+        "@eque/vault-table-row"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/VaultListGrid/VaultListGrid.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/VaultListGrid/VaultListGrid.tsx"
+        },
+        {
+          "path": "components/organisms/VaultListGrid/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/VaultListGrid/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"

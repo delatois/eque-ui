@@ -1737,3 +1737,22 @@ images). Registry description updated.
 **Verification:** `tsc`, `lint` (0 errors; no-img-element warnings =
 accepted kit precedent), `build`, `registry:build`, `build-storybook`
 pass. Visual check on Mil's side.
+
+## [Phase 4.3] Vault List/Grid + Filters — 2026-09-28
+
+`VaultListGrid` organism: Search & Filter Bar (2.8) + sort control
+(Highest APY / Highest TVL / Name A–Z) + grid/table view toggle above
+a responsive Vault Card grid (`1 → 2 → 3` cols, DESIGN.md §4.1) or a
+dense Vault Table Row table, with Pagination (pageSize default 6,
+resets on any control change), card/row-shaped loading skeletons via
+`loading` prop, and an empty-results EmptyState with a Clear filters
+action. Filters (chain/risk/status) are derived from the vault data;
+search matches name + token symbols. `onSelect` resolves the row's
+subset shape back to the full `VaultCardData`. Border-less icons
+carried over from the 4.1/4.2 revision. Stories: Default (pagination
+play), TableView, ViewToggle, Search, Loading, LoadingTable,
+EmptyResults (clear-filters play).
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (42 items),
+`build-storybook` pass. Visual check on Mil's side.
