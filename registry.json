@@ -1156,10 +1156,10 @@
       ]
     },
     {
-      "name": "tvl-performance-chart",
+      "name": "performance-chart",
       "type": "registry:component",
-      "title": "TVL/Performance Chart",
-      "description": "Eque TvlPerformanceChart organism: area chart of historical value with a 7D/30D/90D/All range selector, hover tooltip showing the value at the point, and a range-change indicator in the header; loading and empty states (TASKS.md 5.3).",
+      "title": "Performance Chart",
+      "description": "Eque PerformanceChart organism: area chart with a metric dropdown (TVL / Asset price / APY) and a 7D/30D/90D/All range selector; switching the metric updates the series, title, value formatting, and change indicator (relative % for TVL/price, percentage points for APY); loading and empty states (TASKS.md 5.3, revised 2026-09-28).",
       "dependencies": [
         "cn",
         "recharts"
@@ -1168,18 +1168,19 @@
         "@eque/utils",
         "@eque/skeleton",
         "@eque/empty-state",
-        "@eque/percentage-change-indicator"
+        "@eque/percentage-change-indicator",
+        "@eque/select"
       ],
       "files": [
         {
-          "path": "components/organisms/TvlPerformanceChart/TvlPerformanceChart.tsx",
+          "path": "components/organisms/PerformanceChart/PerformanceChart.tsx",
           "type": "registry:component",
-          "target": "components/organisms/TvlPerformanceChart/TvlPerformanceChart.tsx"
+          "target": "components/organisms/PerformanceChart/PerformanceChart.tsx"
         },
         {
-          "path": "components/organisms/TvlPerformanceChart/index.ts",
+          "path": "components/organisms/PerformanceChart/index.ts",
           "type": "registry:component",
-          "target": "components/organisms/TvlPerformanceChart/index.ts"
+          "target": "components/organisms/PerformanceChart/index.ts"
         }
       ]
     },

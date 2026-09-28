@@ -2,7 +2,7 @@
  * Chart mock data (Phase 5). Values are illustrative only.
  */
 import type { ApyBreakdownDatum } from "@/components/organisms/ApyBreakdownChart";
-import type { TvlChartDatum } from "@/components/organisms/TvlPerformanceChart";
+import type { PerformanceDatum } from "@/components/organisms/PerformanceChart";
 
 /** 8 epochs of APY breakdown, oldest first (TASKS.md 5.1). */
 export const mockApyBreakdown: ApyBreakdownDatum[] = [  { label: "E41", base: 4.2, reward: 2.1, boost: 1.0 },
@@ -18,19 +18,28 @@ export const mockApyBreakdown: ApyBreakdownDatum[] = [  { label: "E41", base: 4.
 const DAY_MS = 86_400_000;
 
 /**
- * 180 days of TVL history ending today, oldest first (TASKS.md 5.3).
- * Deterministic pseudo-random walk — stable across builds.
+ * 180 days of performance history ending today, oldest first
+ * (TASKS.md 5.3, revised 2026-09-28). Deterministic pseudo-random
+ * walks — stable across builds.
  */
-export const mockTvlHistory: TvlChartDatum[] = (() => {
-  const out: TvlChartDatum[] = [];
+export const mockPerformanceHistory: PerformanceDatum[] = (() => {
+  const out: PerformanceDatum[] = [];
   const end = Date.now();
-  let v = 12_000_000;
+  let tvl = 12_000_000;
+  let price = 168;
+  let apy = 7.2;
   for (let i = 179; i >= 0; i--) {
-    v =
-      v *
-        (1 + 0.004 * Math.sin(i * 0.7) + 0.002 * Math.sin(i * 0.23 + 1.7)) +
+    tvl =
+      tvl * (1 + 0.004 * Math.sin(i * 0.7) + 0.002 * Math.sin(i * 0.23 + 1.7)) +
       18_000;
-    out.push({ timestamp: end - i * DAY_MS, value: Math.round(v) });
+    price = price * (1 + 0.006 * Math.sin(i * 0.5 + 0.9)) + 0.12;
+    apy = Math.max(2, apy + 0.05 * Math.sin(i * 0.4) + 0.008);
+    out.push({
+      timestamp: end - i * DAY_MS,
+      tvl: Math.round(tvl),
+      price: Math.round(price * 100) / 100,
+      apy: Math.round(apy * 100) / 100,
+    });
   }
   return out;
 })();

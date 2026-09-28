@@ -1888,3 +1888,22 @@ Fixture in `lib/mock-data/auction.ts`.
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (50 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 5.3 rev] Performance Chart — metric dropdown — 2026-09-28
+
+Revised `TvlPerformanceChart` into `PerformanceChart` (renamed
+folder, files, and registry item `performance-chart`): a metric
+dropdown (Select atom: TVL / Asset price / APY, default TVL) sits
+next to the 7D/30D/90D/All range selector. Switching the metric
+updates the series, the chart title ("TVL history" / "Asset price
+history" / "APY history"), the value formatting, and the change
+indicator — relative % for TVL/price, percentage points ("+1.24 pp")
+for APY with matching direction glyph/color. One color per metric
+from the DESIGN.md §7.9 series order. Mock data is now
+`PerformanceDatum { timestamp, tvl, price, apy }` with a
+deterministic 180-day `mockPerformanceHistory`. Stories: Default
+(dropdown switch asserted), AssetPrice, Loading, Empty.
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (50 items),
+`build-storybook` pass. Visual check on Mil's side.
