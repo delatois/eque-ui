@@ -11,3 +11,4 @@ export * from "./VaultListGrid";
 export * from "./DepositWithdrawPanel";
 export * from "./StrategyInfoPanel";
 export * from "./ApyBreakdownChart";
+export * from "./PortfolioSummaryCard";

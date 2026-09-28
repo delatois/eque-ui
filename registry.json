@@ -1129,6 +1129,31 @@
           "target": "components/organisms/ApyBreakdownChart/index.ts"
         }
       ]
+    },
+    {
+      "name": "portfolio-summary-card",
+      "type": "registry:component",
+      "title": "Portfolio Summary Card",
+      "description": "Eque PortfolioSummaryCard organism: total deposited, total earned, and daily/monthly yield as a responsive grid of Stat Cards (2.1) with optional trend captions; loading swaps every value for its skeleton block (TASKS.md 5.2).",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/stat-card"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/PortfolioSummaryCard/PortfolioSummaryCard.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/PortfolioSummaryCard/PortfolioSummaryCard.tsx"
+        },
+        {
+          "path": "components/organisms/PortfolioSummaryCard/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/PortfolioSummaryCard/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"

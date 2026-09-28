@@ -1825,3 +1825,15 @@ Default (total + legend + bars asserted), Loading, Empty. New
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (46 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 5.2] Portfolio Summary Card — 2026-09-28
+
+`PortfolioSummaryCard` organism: total deposited, total earned, and
+daily/monthly yield (USD) as a responsive grid of Stat Cards (2.1) —
+1 col mobile → 2 col sm → 4 col xl — with optional per-stat trend
+captions. `loading` swaps every value for its skeleton block while
+labels stay. Stories: Default (values + 4 cards asserted), Loading.
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (47 items),
+`build-storybook` pass. Visual check on Mil's side.
