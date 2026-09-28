@@ -1210,6 +1210,37 @@
           "target": "components/organisms/CompoundingHistoryTable/index.ts"
         }
       ]
+    },
+    {
+      "name": "live-epoch-panel",
+      "type": "registry:component",
+      "title": "Live Epoch Panel",
+      "description": "Eque LiveEpochPanel organism (bonus): the spectator view of the options auction — live badge + epoch + countdown, strike/spot/premium stat cards with an OTM/ITM moneyness badge, the live bid feed built from AuctionBidRow, and a past-epochs strip.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/skeleton",
+        "@eque/empty-state",
+        "@eque/stat-card",
+        "@eque/auction-bid-row",
+        "@eque/epoch-countdown-timer",
+        "@eque/live-badge"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/LiveEpochPanel/LiveEpochPanel.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/LiveEpochPanel/LiveEpochPanel.tsx"
+        },
+        {
+          "path": "components/organisms/LiveEpochPanel/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/LiveEpochPanel/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"

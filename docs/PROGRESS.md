@@ -1871,3 +1871,20 @@ Fixture in `lib/mock-data/history.ts`. Phase 5 is now 4/4 complete.
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (49 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Bonus] Live Epoch Panel — 2026-09-28
+
+`LiveEpochPanel` organism (bonus — outside the numbered TASKS.md
+plan, like AuctionBidRow): the spectator view of the options
+auction for the `/auction` route. Header with LiveBadge (LIVE /
+SETTLING / SETTLED by phase) + epoch number + OTM/ITM moneyness
+badge + `EpochCountdownTimer`; strike/spot/highest-bid (or winning
+premium when settled) stat cards; the live bid feed built from
+`AuctionBidRow` with the leader highlighted; optional past-epochs
+premium strip. `loading` renders skeleton blocks, empty bids render
+an EmptyState. Stories: Bidding, Settled, Loading + play tests.
+Fixture in `lib/mock-data/auction.ts`.
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (50 items),
+`build-storybook` pass. Visual check on Mil's side.

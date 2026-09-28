@@ -14,3 +14,4 @@ export * from "./ApyBreakdownChart";
 export * from "./PortfolioSummaryCard";
 export * from "./TvlPerformanceChart";
 export * from "./CompoundingHistoryTable";
+export * from "./LiveEpochPanel";
