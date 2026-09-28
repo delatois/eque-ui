@@ -94,19 +94,22 @@ function LiveEpochPanel({
       aria-label={`Epoch ${epoch} auction`}
       className={cn("border border-border-subtle bg-surface p-6", className)}
     >
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="mb-5 flex items-start justify-between gap-4">
+        <div className="flex flex-col items-start gap-1.5">
           <LiveBadge state={state} label={label} />
-          <h3 className="font-heading text-base font-semibold text-text-primary">
+          <h3 className="font-heading text-lg font-semibold text-text-primary">
             Epoch {epoch}
           </h3>
-          <Badge variant="neutral" title="Call option moneyness">
-            {isOtm ? "Call OTM" : "Call ITM"}
-          </Badge>
+          {!loading && phase !== "settled" ? (
+            <EpochCountdownTimer
+              target={epochEndsAt}
+              className="[&>span:last-child]:text-xs"
+            />
+          ) : null}
         </div>
-        {!loading && phase !== "settled" ? (
-          <EpochCountdownTimer target={epochEndsAt} />
-        ) : null}
+        <Badge variant="neutral" title="Call option moneyness">
+          {isOtm ? "Call OTM" : "Call ITM"}
+        </Badge>
       </div>
 
       {loading ? (
