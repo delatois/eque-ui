@@ -109,7 +109,7 @@ Depends on Phases 1–2, and Recharts (0.10).
 - [x] **5.1 APY Breakdown Chart** — Stacked bar or area chart: base vs. reward vs. boosted APY, using the chart color order from `DESIGN.md` §7.9 (`#1FFFC3 → #3BE3B6 → #57C7A9 → #73AB9C`), square markers, gridlines in `border-subtle`.
 - [x] **5.2 Portfolio Summary Card** — Total deposited, total earned, daily/monthly yield, using Stat Card (2.1) internally; loading skeleton variant.
 - [x] **5.3 TVL/Performance Chart** — Line/area historical chart with a time-range selector (7D/30D/90D/All); tooltip on hover showing value at point; empty/loading states.
-- [ ] **5.4 Compounding History Table** — Table (`table` primitive) of auto-compound events: date, amount compounded, resulting balance, tx hash chip; pagination if long.
+- [x] **5.4 Compounding History Table** — Table (`table` primitive) of auto-compound events: date, amount compounded, resulting balance, tx hash chip; pagination if long.
 
 ---
 

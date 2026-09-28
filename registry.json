@@ -1182,6 +1182,34 @@
           "target": "components/organisms/TvlPerformanceChart/index.ts"
         }
       ]
+    },
+    {
+      "name": "compounding-history-table",
+      "type": "registry:component",
+      "title": "Compounding History Table",
+      "description": "Eque CompoundingHistoryTable organism: auto-compound events with date, amount compounded, resulting balance, and a tx hash chip on the shadcn table primitive; internal pagination when the list exceeds pageSize (TASKS.md 5.4).",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/badge",
+        "@eque/skeleton",
+        "@eque/empty-state",
+        "@eque/pagination"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/CompoundingHistoryTable/CompoundingHistoryTable.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/CompoundingHistoryTable/CompoundingHistoryTable.tsx"
+        },
+        {
+          "path": "components/organisms/CompoundingHistoryTable/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/CompoundingHistoryTable/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"

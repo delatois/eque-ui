@@ -1855,3 +1855,19 @@ Default (range-switch play + area assertion), Loading, Empty.
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (48 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 5.4] Compounding History Table — 2026-09-28
+
+`CompoundingHistoryTable` organism: auto-compound events (date,
+amount compounded, resulting balance, tx hash chip) on the shadcn
+`table` primitive — amounts right-aligned tabular mono, gains in
+success color, hash truncated to a neutral mono chip with the full
+hash as its title. Internal pagination (`pageSize` default 8, compact
+Pagination) appears when the list overflows. `loading` renders
+skeleton rows, empty events render an EmptyState. Stories: Default
+(12 events → 2 pages, page navigation asserted), Loading, Empty.
+Fixture in `lib/mock-data/history.ts`. Phase 5 is now 4/4 complete.
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (49 items),
+`build-storybook` pass. Visual check on Mil's side.
