@@ -1837,3 +1837,21 @@ labels stay. Stories: Default (values + 4 cards asserted), Loading.
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (47 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 5.3] TVL/Performance Chart — 2026-09-28
+
+`TvlPerformanceChart` organism (recharts 3.10): area chart of
+historical value with an uncontrolled 7D/30D/90D/All range selector
+(slices from the latest point; `onRangeChange` callback), custom
+hover tooltip showing the value at the point, and a
+`PercentageChangeIndicator` in the header computed over the visible
+window. Y-axis uses compact `formatTvl` ticks; X-axis adapts its date
+format to the range. `usePrefersReducedMotion` was extracted to
+`lib/hooks/usePrefersReducedMotion.ts` and shared with 5.1. `loading`
+renders a skeleton, empty data renders an EmptyState. Stories:
+Default (range-switch play + area assertion), Loading, Empty.
+`lib/mock-data/charts.ts` gained a deterministic 180-day TVL walk.
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (48 items),
+`build-storybook` pass. Visual check on Mil's side.

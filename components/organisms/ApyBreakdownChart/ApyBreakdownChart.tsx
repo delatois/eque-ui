@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts";
 import { cn } from "cn";
+import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 import { Skeleton } from "@/components/atoms/Skeleton";
 import { EmptyState } from "@/components/molecules/EmptyState";
 
@@ -49,21 +50,6 @@ const SERIES = [
   { key: "reward", label: "Rewards", color: "#3BE3B6" },
   { key: "boost", label: "Boost", color: "#57C7A9" },
 ] as const;
-
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = React.useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-  React.useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-  return reduced;
-}
 
 interface TooltipRow {
   name: string;

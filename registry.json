@@ -1154,6 +1154,34 @@
           "target": "components/organisms/PortfolioSummaryCard/index.ts"
         }
       ]
+    },
+    {
+      "name": "tvl-performance-chart",
+      "type": "registry:component",
+      "title": "TVL/Performance Chart",
+      "description": "Eque TvlPerformanceChart organism: area chart of historical value with a 7D/30D/90D/All range selector, hover tooltip showing the value at the point, and a range-change indicator in the header; loading and empty states (TASKS.md 5.3).",
+      "dependencies": [
+        "cn",
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/skeleton",
+        "@eque/empty-state",
+        "@eque/percentage-change-indicator"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/TvlPerformanceChart/TvlPerformanceChart.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/TvlPerformanceChart/TvlPerformanceChart.tsx"
+        },
+        {
+          "path": "components/organisms/TvlPerformanceChart/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/TvlPerformanceChart/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"
