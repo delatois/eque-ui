@@ -9,7 +9,7 @@ import {
   type AuctionBidRowProps,
 } from "@/components/molecules/AuctionBidRow";
 import { EpochCountdownTimer } from "@/components/molecules/EpochCountdownTimer";
-import { LiveBadge, type LiveState } from "@/components/molecules/LiveBadge";
+import type { LiveState } from "@/components/molecules/LiveBadge";
 import { StatCard } from "@/components/molecules/StatCard";
 import { EmptyState } from "@/components/molecules/EmptyState";
 
@@ -96,7 +96,17 @@ function LiveEpochPanel({
     >
       <div className="mb-5 flex items-start justify-between gap-4">
         <div className="flex flex-col items-start gap-1.5">
-          <LiveBadge state={state} label={label} />
+          <span
+            data-slot="epoch-status"
+            className={cn(
+              "font-mono text-xs font-bold uppercase tracking-[0.18em]",
+              state === "live" && "text-success",
+              state === "upcoming" && "text-warning",
+              state === "ended" && "text-text-tertiary"
+            )}
+          >
+            {label}
+          </span>
           <h3 className="font-heading text-lg font-semibold text-text-primary">
             Epoch {epoch}
           </h3>
