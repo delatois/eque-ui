@@ -1102,6 +1102,33 @@
           "target": "components/molecules/AuditSecurityBadgeRow/index.ts"
         }
       ]
+    },
+    {
+      "name": "apy-breakdown-chart",
+      "type": "registry:component",
+      "title": "APY Breakdown Chart",
+      "description": "Eque ApyBreakdownChart organism: stacked bars of base vs. reward vs. boosted APY per period in the DESIGN.md §7.9 series color order, border-subtle gridlines, square legend swatches, custom hover tooltip; loading and empty states (TASKS.md 5.1).",
+      "dependencies": [
+        "cn",
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@eque/utils",
+        "@eque/skeleton",
+        "@eque/empty-state"
+      ],
+      "files": [
+        {
+          "path": "components/organisms/ApyBreakdownChart/ApyBreakdownChart.tsx",
+          "type": "registry:component",
+          "target": "components/organisms/ApyBreakdownChart/ApyBreakdownChart.tsx"
+        },
+        {
+          "path": "components/organisms/ApyBreakdownChart/index.ts",
+          "type": "registry:component",
+          "target": "components/organisms/ApyBreakdownChart/index.ts"
+        }
+      ]
     }
   ],
   "name": "@eque"

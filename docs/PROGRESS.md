@@ -1807,3 +1807,21 @@ badges, tooltip-on-hover play) and UnauditedWarning. Phase 4 is now
 **Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
 accepted kit precedent), `build`, `registry:build` (45 items),
 `build-storybook` pass. Visual check on Mil's side.
+
+## [Phase 5.1] APY Breakdown Chart — 2026-09-28
+
+`ApyBreakdownChart` organism (recharts 3.10): stacked bars of base /
+reward / boost APY per period in the DESIGN.md §7.9 series color
+order (`#1FFFC3 → #3BE3B6 → #57C7A9`), `#1A222D` gridlines, square
+legend swatches + custom hover tooltip (per-segment rows + total),
+header with the current total APY. `loading` renders a skeleton,
+empty data renders an EmptyState. Bar animation is disabled under
+`prefers-reduced-motion` via a local media-query hook (lint
+`setState`-in-effect rule satisfied with a lazy initializer).
+`role="img"` + aria-label summarizes the chart for AT. Stories:
+Default (total + legend + bars asserted), Loading, Empty. New
+`lib/mock-data/charts.ts` holds the fixture (per AGENTS.md §10).
+
+**Verification:** `tsc`, `lint` (0 errors; 6 no-img-element warnings =
+accepted kit precedent), `build`, `registry:build` (46 items),
+`build-storybook` pass. Visual check on Mil's side.

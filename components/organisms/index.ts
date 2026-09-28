@@ -10,3 +10,4 @@ export * from "./VaultTableRow";
 export * from "./VaultListGrid";
 export * from "./DepositWithdrawPanel";
 export * from "./StrategyInfoPanel";
+export * from "./ApyBreakdownChart";
